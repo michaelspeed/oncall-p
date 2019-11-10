@@ -2,7 +2,27 @@
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-export const typeDefs = /* GraphQL */ `type AggregateDoctor {
+export const typeDefs = /* GraphQL */ `type AggregateAppointment {
+  count: Int!
+}
+
+type AggregateAttending {
+  count: Int!
+}
+
+type AggregateChamber {
+  count: Int!
+}
+
+type AggregateDoctor {
+  count: Int!
+}
+
+type AggregateHospital {
+  count: Int!
+}
+
+type AggregateLocation {
   count: Int!
 }
 
@@ -14,8 +34,929 @@ type AggregateUser {
   count: Int!
 }
 
+type AggregateVerificationCode {
+  count: Int!
+}
+
+type Appointment {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  start_time: DateTime!
+  end_time: DateTime!
+  chamber: Chamber
+  hospital: Hospital
+}
+
+type AppointmentConnection {
+  pageInfo: PageInfo!
+  edges: [AppointmentEdge]!
+  aggregate: AggregateAppointment!
+}
+
+input AppointmentCreateInput {
+  id: ID
+  start_time: DateTime!
+  end_time: DateTime!
+  chamber: ChamberCreateOneWithoutAppointmentsInput
+  hospital: HospitalCreateOneWithoutAppointmentsInput
+}
+
+input AppointmentCreateManyWithoutChamberInput {
+  create: [AppointmentCreateWithoutChamberInput!]
+  connect: [AppointmentWhereUniqueInput!]
+}
+
+input AppointmentCreateManyWithoutHospitalInput {
+  create: [AppointmentCreateWithoutHospitalInput!]
+  connect: [AppointmentWhereUniqueInput!]
+}
+
+input AppointmentCreateWithoutChamberInput {
+  id: ID
+  start_time: DateTime!
+  end_time: DateTime!
+  hospital: HospitalCreateOneWithoutAppointmentsInput
+}
+
+input AppointmentCreateWithoutHospitalInput {
+  id: ID
+  start_time: DateTime!
+  end_time: DateTime!
+  chamber: ChamberCreateOneWithoutAppointmentsInput
+}
+
+type AppointmentEdge {
+  node: Appointment!
+  cursor: String!
+}
+
+enum AppointmentOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  start_time_ASC
+  start_time_DESC
+  end_time_ASC
+  end_time_DESC
+}
+
+type AppointmentPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  start_time: DateTime!
+  end_time: DateTime!
+}
+
+input AppointmentScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  start_time: DateTime
+  start_time_not: DateTime
+  start_time_in: [DateTime!]
+  start_time_not_in: [DateTime!]
+  start_time_lt: DateTime
+  start_time_lte: DateTime
+  start_time_gt: DateTime
+  start_time_gte: DateTime
+  end_time: DateTime
+  end_time_not: DateTime
+  end_time_in: [DateTime!]
+  end_time_not_in: [DateTime!]
+  end_time_lt: DateTime
+  end_time_lte: DateTime
+  end_time_gt: DateTime
+  end_time_gte: DateTime
+  AND: [AppointmentScalarWhereInput!]
+  OR: [AppointmentScalarWhereInput!]
+  NOT: [AppointmentScalarWhereInput!]
+}
+
+type AppointmentSubscriptionPayload {
+  mutation: MutationType!
+  node: Appointment
+  updatedFields: [String!]
+  previousValues: AppointmentPreviousValues
+}
+
+input AppointmentSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AppointmentWhereInput
+  AND: [AppointmentSubscriptionWhereInput!]
+  OR: [AppointmentSubscriptionWhereInput!]
+  NOT: [AppointmentSubscriptionWhereInput!]
+}
+
+input AppointmentUpdateInput {
+  start_time: DateTime
+  end_time: DateTime
+  chamber: ChamberUpdateOneWithoutAppointmentsInput
+  hospital: HospitalUpdateOneWithoutAppointmentsInput
+}
+
+input AppointmentUpdateManyDataInput {
+  start_time: DateTime
+  end_time: DateTime
+}
+
+input AppointmentUpdateManyMutationInput {
+  start_time: DateTime
+  end_time: DateTime
+}
+
+input AppointmentUpdateManyWithoutChamberInput {
+  create: [AppointmentCreateWithoutChamberInput!]
+  delete: [AppointmentWhereUniqueInput!]
+  connect: [AppointmentWhereUniqueInput!]
+  set: [AppointmentWhereUniqueInput!]
+  disconnect: [AppointmentWhereUniqueInput!]
+  update: [AppointmentUpdateWithWhereUniqueWithoutChamberInput!]
+  upsert: [AppointmentUpsertWithWhereUniqueWithoutChamberInput!]
+  deleteMany: [AppointmentScalarWhereInput!]
+  updateMany: [AppointmentUpdateManyWithWhereNestedInput!]
+}
+
+input AppointmentUpdateManyWithoutHospitalInput {
+  create: [AppointmentCreateWithoutHospitalInput!]
+  delete: [AppointmentWhereUniqueInput!]
+  connect: [AppointmentWhereUniqueInput!]
+  set: [AppointmentWhereUniqueInput!]
+  disconnect: [AppointmentWhereUniqueInput!]
+  update: [AppointmentUpdateWithWhereUniqueWithoutHospitalInput!]
+  upsert: [AppointmentUpsertWithWhereUniqueWithoutHospitalInput!]
+  deleteMany: [AppointmentScalarWhereInput!]
+  updateMany: [AppointmentUpdateManyWithWhereNestedInput!]
+}
+
+input AppointmentUpdateManyWithWhereNestedInput {
+  where: AppointmentScalarWhereInput!
+  data: AppointmentUpdateManyDataInput!
+}
+
+input AppointmentUpdateWithoutChamberDataInput {
+  start_time: DateTime
+  end_time: DateTime
+  hospital: HospitalUpdateOneWithoutAppointmentsInput
+}
+
+input AppointmentUpdateWithoutHospitalDataInput {
+  start_time: DateTime
+  end_time: DateTime
+  chamber: ChamberUpdateOneWithoutAppointmentsInput
+}
+
+input AppointmentUpdateWithWhereUniqueWithoutChamberInput {
+  where: AppointmentWhereUniqueInput!
+  data: AppointmentUpdateWithoutChamberDataInput!
+}
+
+input AppointmentUpdateWithWhereUniqueWithoutHospitalInput {
+  where: AppointmentWhereUniqueInput!
+  data: AppointmentUpdateWithoutHospitalDataInput!
+}
+
+input AppointmentUpsertWithWhereUniqueWithoutChamberInput {
+  where: AppointmentWhereUniqueInput!
+  update: AppointmentUpdateWithoutChamberDataInput!
+  create: AppointmentCreateWithoutChamberInput!
+}
+
+input AppointmentUpsertWithWhereUniqueWithoutHospitalInput {
+  where: AppointmentWhereUniqueInput!
+  update: AppointmentUpdateWithoutHospitalDataInput!
+  create: AppointmentCreateWithoutHospitalInput!
+}
+
+input AppointmentWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  start_time: DateTime
+  start_time_not: DateTime
+  start_time_in: [DateTime!]
+  start_time_not_in: [DateTime!]
+  start_time_lt: DateTime
+  start_time_lte: DateTime
+  start_time_gt: DateTime
+  start_time_gte: DateTime
+  end_time: DateTime
+  end_time_not: DateTime
+  end_time_in: [DateTime!]
+  end_time_not_in: [DateTime!]
+  end_time_lt: DateTime
+  end_time_lte: DateTime
+  end_time_gt: DateTime
+  end_time_gte: DateTime
+  chamber: ChamberWhereInput
+  hospital: HospitalWhereInput
+  AND: [AppointmentWhereInput!]
+  OR: [AppointmentWhereInput!]
+  NOT: [AppointmentWhereInput!]
+}
+
+input AppointmentWhereUniqueInput {
+  id: ID
+}
+
+type Attending {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  doctor: Doctor
+  chamber(where: ChamberWhereInput, orderBy: ChamberOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chamber!]
+}
+
+type AttendingConnection {
+  pageInfo: PageInfo!
+  edges: [AttendingEdge]!
+  aggregate: AggregateAttending!
+}
+
+input AttendingCreateInput {
+  id: ID
+  doctor: DoctorCreateOneWithoutAttendingInput
+  chamber: ChamberCreateManyWithoutAttendingInput
+}
+
+input AttendingCreateManyWithoutChamberInput {
+  create: [AttendingCreateWithoutChamberInput!]
+  connect: [AttendingWhereUniqueInput!]
+}
+
+input AttendingCreateManyWithoutDoctorInput {
+  create: [AttendingCreateWithoutDoctorInput!]
+  connect: [AttendingWhereUniqueInput!]
+}
+
+input AttendingCreateWithoutChamberInput {
+  id: ID
+  doctor: DoctorCreateOneWithoutAttendingInput
+}
+
+input AttendingCreateWithoutDoctorInput {
+  id: ID
+  chamber: ChamberCreateManyWithoutAttendingInput
+}
+
+type AttendingEdge {
+  node: Attending!
+  cursor: String!
+}
+
+enum AttendingOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type AttendingPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input AttendingScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [AttendingScalarWhereInput!]
+  OR: [AttendingScalarWhereInput!]
+  NOT: [AttendingScalarWhereInput!]
+}
+
+type AttendingSubscriptionPayload {
+  mutation: MutationType!
+  node: Attending
+  updatedFields: [String!]
+  previousValues: AttendingPreviousValues
+}
+
+input AttendingSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AttendingWhereInput
+  AND: [AttendingSubscriptionWhereInput!]
+  OR: [AttendingSubscriptionWhereInput!]
+  NOT: [AttendingSubscriptionWhereInput!]
+}
+
+input AttendingUpdateInput {
+  doctor: DoctorUpdateOneWithoutAttendingInput
+  chamber: ChamberUpdateManyWithoutAttendingInput
+}
+
+input AttendingUpdateManyWithoutChamberInput {
+  create: [AttendingCreateWithoutChamberInput!]
+  delete: [AttendingWhereUniqueInput!]
+  connect: [AttendingWhereUniqueInput!]
+  set: [AttendingWhereUniqueInput!]
+  disconnect: [AttendingWhereUniqueInput!]
+  update: [AttendingUpdateWithWhereUniqueWithoutChamberInput!]
+  upsert: [AttendingUpsertWithWhereUniqueWithoutChamberInput!]
+  deleteMany: [AttendingScalarWhereInput!]
+}
+
+input AttendingUpdateManyWithoutDoctorInput {
+  create: [AttendingCreateWithoutDoctorInput!]
+  delete: [AttendingWhereUniqueInput!]
+  connect: [AttendingWhereUniqueInput!]
+  set: [AttendingWhereUniqueInput!]
+  disconnect: [AttendingWhereUniqueInput!]
+  update: [AttendingUpdateWithWhereUniqueWithoutDoctorInput!]
+  upsert: [AttendingUpsertWithWhereUniqueWithoutDoctorInput!]
+  deleteMany: [AttendingScalarWhereInput!]
+}
+
+input AttendingUpdateWithoutChamberDataInput {
+  doctor: DoctorUpdateOneWithoutAttendingInput
+}
+
+input AttendingUpdateWithoutDoctorDataInput {
+  chamber: ChamberUpdateManyWithoutAttendingInput
+}
+
+input AttendingUpdateWithWhereUniqueWithoutChamberInput {
+  where: AttendingWhereUniqueInput!
+  data: AttendingUpdateWithoutChamberDataInput!
+}
+
+input AttendingUpdateWithWhereUniqueWithoutDoctorInput {
+  where: AttendingWhereUniqueInput!
+  data: AttendingUpdateWithoutDoctorDataInput!
+}
+
+input AttendingUpsertWithWhereUniqueWithoutChamberInput {
+  where: AttendingWhereUniqueInput!
+  update: AttendingUpdateWithoutChamberDataInput!
+  create: AttendingCreateWithoutChamberInput!
+}
+
+input AttendingUpsertWithWhereUniqueWithoutDoctorInput {
+  where: AttendingWhereUniqueInput!
+  update: AttendingUpdateWithoutDoctorDataInput!
+  create: AttendingCreateWithoutDoctorInput!
+}
+
+input AttendingWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  doctor: DoctorWhereInput
+  chamber_every: ChamberWhereInput
+  chamber_some: ChamberWhereInput
+  chamber_none: ChamberWhereInput
+  AND: [AttendingWhereInput!]
+  OR: [AttendingWhereInput!]
+  NOT: [AttendingWhereInput!]
+}
+
+input AttendingWhereUniqueInput {
+  id: ID
+}
+
 type BatchPayload {
   count: Long!
+}
+
+type Chamber {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending(where: AttendingWhereInput, orderBy: AttendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Attending!]
+  appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment!]
+  doctor(where: DoctorWhereInput, orderBy: DoctorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Doctor!]
+  location: Location
+}
+
+type ChamberConnection {
+  pageInfo: PageInfo!
+  edges: [ChamberEdge]!
+  aggregate: AggregateChamber!
+}
+
+input ChamberCreateInput {
+  id: ID
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending: AttendingCreateManyWithoutChamberInput
+  appointments: AppointmentCreateManyWithoutChamberInput
+  doctor: DoctorCreateManyWithoutChamberInput
+  location: LocationCreateOneWithoutChamberInput
+}
+
+input ChamberCreateManyWithoutAttendingInput {
+  create: [ChamberCreateWithoutAttendingInput!]
+  connect: [ChamberWhereUniqueInput!]
+}
+
+input ChamberCreateManyWithoutDoctorInput {
+  create: [ChamberCreateWithoutDoctorInput!]
+  connect: [ChamberWhereUniqueInput!]
+}
+
+input ChamberCreateOneWithoutAppointmentsInput {
+  create: ChamberCreateWithoutAppointmentsInput
+  connect: ChamberWhereUniqueInput
+}
+
+input ChamberCreateOneWithoutLocationInput {
+  create: ChamberCreateWithoutLocationInput
+  connect: ChamberWhereUniqueInput
+}
+
+input ChamberCreateWithoutAppointmentsInput {
+  id: ID
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending: AttendingCreateManyWithoutChamberInput
+  doctor: DoctorCreateManyWithoutChamberInput
+  location: LocationCreateOneWithoutChamberInput
+}
+
+input ChamberCreateWithoutAttendingInput {
+  id: ID
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  appointments: AppointmentCreateManyWithoutChamberInput
+  doctor: DoctorCreateManyWithoutChamberInput
+  location: LocationCreateOneWithoutChamberInput
+}
+
+input ChamberCreateWithoutDoctorInput {
+  id: ID
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending: AttendingCreateManyWithoutChamberInput
+  appointments: AppointmentCreateManyWithoutChamberInput
+  location: LocationCreateOneWithoutChamberInput
+}
+
+input ChamberCreateWithoutLocationInput {
+  id: ID
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending: AttendingCreateManyWithoutChamberInput
+  appointments: AppointmentCreateManyWithoutChamberInput
+  doctor: DoctorCreateManyWithoutChamberInput
+}
+
+type ChamberEdge {
+  node: Chamber!
+  cursor: String!
+}
+
+enum ChamberOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+  start_time_ASC
+  start_time_DESC
+  end_time_ASC
+  end_time_DESC
+}
+
+type ChamberPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+}
+
+input ChamberScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  start_time: DateTime
+  start_time_not: DateTime
+  start_time_in: [DateTime!]
+  start_time_not_in: [DateTime!]
+  start_time_lt: DateTime
+  start_time_lte: DateTime
+  start_time_gt: DateTime
+  start_time_gte: DateTime
+  end_time: DateTime
+  end_time_not: DateTime
+  end_time_in: [DateTime!]
+  end_time_not_in: [DateTime!]
+  end_time_lt: DateTime
+  end_time_lte: DateTime
+  end_time_gt: DateTime
+  end_time_gte: DateTime
+  AND: [ChamberScalarWhereInput!]
+  OR: [ChamberScalarWhereInput!]
+  NOT: [ChamberScalarWhereInput!]
+}
+
+type ChamberSubscriptionPayload {
+  mutation: MutationType!
+  node: Chamber
+  updatedFields: [String!]
+  previousValues: ChamberPreviousValues
+}
+
+input ChamberSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ChamberWhereInput
+  AND: [ChamberSubscriptionWhereInput!]
+  OR: [ChamberSubscriptionWhereInput!]
+  NOT: [ChamberSubscriptionWhereInput!]
+}
+
+input ChamberUpdateInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+  attending: AttendingUpdateManyWithoutChamberInput
+  appointments: AppointmentUpdateManyWithoutChamberInput
+  doctor: DoctorUpdateManyWithoutChamberInput
+  location: LocationUpdateOneWithoutChamberInput
+}
+
+input ChamberUpdateManyDataInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+}
+
+input ChamberUpdateManyMutationInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+}
+
+input ChamberUpdateManyWithoutAttendingInput {
+  create: [ChamberCreateWithoutAttendingInput!]
+  delete: [ChamberWhereUniqueInput!]
+  connect: [ChamberWhereUniqueInput!]
+  set: [ChamberWhereUniqueInput!]
+  disconnect: [ChamberWhereUniqueInput!]
+  update: [ChamberUpdateWithWhereUniqueWithoutAttendingInput!]
+  upsert: [ChamberUpsertWithWhereUniqueWithoutAttendingInput!]
+  deleteMany: [ChamberScalarWhereInput!]
+  updateMany: [ChamberUpdateManyWithWhereNestedInput!]
+}
+
+input ChamberUpdateManyWithoutDoctorInput {
+  create: [ChamberCreateWithoutDoctorInput!]
+  delete: [ChamberWhereUniqueInput!]
+  connect: [ChamberWhereUniqueInput!]
+  set: [ChamberWhereUniqueInput!]
+  disconnect: [ChamberWhereUniqueInput!]
+  update: [ChamberUpdateWithWhereUniqueWithoutDoctorInput!]
+  upsert: [ChamberUpsertWithWhereUniqueWithoutDoctorInput!]
+  deleteMany: [ChamberScalarWhereInput!]
+  updateMany: [ChamberUpdateManyWithWhereNestedInput!]
+}
+
+input ChamberUpdateManyWithWhereNestedInput {
+  where: ChamberScalarWhereInput!
+  data: ChamberUpdateManyDataInput!
+}
+
+input ChamberUpdateOneWithoutAppointmentsInput {
+  create: ChamberCreateWithoutAppointmentsInput
+  update: ChamberUpdateWithoutAppointmentsDataInput
+  upsert: ChamberUpsertWithoutAppointmentsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ChamberWhereUniqueInput
+}
+
+input ChamberUpdateOneWithoutLocationInput {
+  create: ChamberCreateWithoutLocationInput
+  update: ChamberUpdateWithoutLocationDataInput
+  upsert: ChamberUpsertWithoutLocationInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ChamberWhereUniqueInput
+}
+
+input ChamberUpdateWithoutAppointmentsDataInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+  attending: AttendingUpdateManyWithoutChamberInput
+  doctor: DoctorUpdateManyWithoutChamberInput
+  location: LocationUpdateOneWithoutChamberInput
+}
+
+input ChamberUpdateWithoutAttendingDataInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+  appointments: AppointmentUpdateManyWithoutChamberInput
+  doctor: DoctorUpdateManyWithoutChamberInput
+  location: LocationUpdateOneWithoutChamberInput
+}
+
+input ChamberUpdateWithoutDoctorDataInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+  attending: AttendingUpdateManyWithoutChamberInput
+  appointments: AppointmentUpdateManyWithoutChamberInput
+  location: LocationUpdateOneWithoutChamberInput
+}
+
+input ChamberUpdateWithoutLocationDataInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+  attending: AttendingUpdateManyWithoutChamberInput
+  appointments: AppointmentUpdateManyWithoutChamberInput
+  doctor: DoctorUpdateManyWithoutChamberInput
+}
+
+input ChamberUpdateWithWhereUniqueWithoutAttendingInput {
+  where: ChamberWhereUniqueInput!
+  data: ChamberUpdateWithoutAttendingDataInput!
+}
+
+input ChamberUpdateWithWhereUniqueWithoutDoctorInput {
+  where: ChamberWhereUniqueInput!
+  data: ChamberUpdateWithoutDoctorDataInput!
+}
+
+input ChamberUpsertWithoutAppointmentsInput {
+  update: ChamberUpdateWithoutAppointmentsDataInput!
+  create: ChamberCreateWithoutAppointmentsInput!
+}
+
+input ChamberUpsertWithoutLocationInput {
+  update: ChamberUpdateWithoutLocationDataInput!
+  create: ChamberCreateWithoutLocationInput!
+}
+
+input ChamberUpsertWithWhereUniqueWithoutAttendingInput {
+  where: ChamberWhereUniqueInput!
+  update: ChamberUpdateWithoutAttendingDataInput!
+  create: ChamberCreateWithoutAttendingInput!
+}
+
+input ChamberUpsertWithWhereUniqueWithoutDoctorInput {
+  where: ChamberWhereUniqueInput!
+  update: ChamberUpdateWithoutDoctorDataInput!
+  create: ChamberCreateWithoutDoctorInput!
+}
+
+input ChamberWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  start_time: DateTime
+  start_time_not: DateTime
+  start_time_in: [DateTime!]
+  start_time_not_in: [DateTime!]
+  start_time_lt: DateTime
+  start_time_lte: DateTime
+  start_time_gt: DateTime
+  start_time_gte: DateTime
+  end_time: DateTime
+  end_time_not: DateTime
+  end_time_in: [DateTime!]
+  end_time_not_in: [DateTime!]
+  end_time_lt: DateTime
+  end_time_lte: DateTime
+  end_time_gt: DateTime
+  end_time_gte: DateTime
+  attending_every: AttendingWhereInput
+  attending_some: AttendingWhereInput
+  attending_none: AttendingWhereInput
+  appointments_every: AppointmentWhereInput
+  appointments_some: AppointmentWhereInput
+  appointments_none: AppointmentWhereInput
+  doctor_every: DoctorWhereInput
+  doctor_some: DoctorWhereInput
+  doctor_none: DoctorWhereInput
+  location: LocationWhereInput
+  AND: [ChamberWhereInput!]
+  OR: [ChamberWhereInput!]
+  NOT: [ChamberWhereInput!]
+}
+
+input ChamberWhereUniqueInput {
+  id: ID
 }
 
 scalar DateTime
@@ -32,6 +973,10 @@ type Doctor {
   state: String
   zip: String
   user: User!
+  attending(where: AttendingWhereInput, orderBy: AttendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Attending!]
+  chamber(where: ChamberWhereInput, orderBy: ChamberOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chamber!]
+  verifac: VerificationCode
+  profile: Profile
 }
 
 type DoctorConnection {
@@ -50,11 +995,80 @@ input DoctorCreateInput {
   state: String
   zip: String
   user: UserCreateOneWithoutDoctorInput!
+  attending: AttendingCreateManyWithoutDoctorInput
+  chamber: ChamberCreateManyWithoutDoctorInput
+  verifac: VerificationCodeCreateOneWithoutDoctorInput
+  profile: ProfileCreateOneWithoutDoctorInput
+}
+
+input DoctorCreateManyWithoutChamberInput {
+  create: [DoctorCreateWithoutChamberInput!]
+  connect: [DoctorWhereUniqueInput!]
+}
+
+input DoctorCreateOneWithoutAttendingInput {
+  create: DoctorCreateWithoutAttendingInput
+  connect: DoctorWhereUniqueInput
+}
+
+input DoctorCreateOneWithoutProfileInput {
+  create: DoctorCreateWithoutProfileInput
+  connect: DoctorWhereUniqueInput
 }
 
 input DoctorCreateOneWithoutUserInput {
   create: DoctorCreateWithoutUserInput
   connect: DoctorWhereUniqueInput
+}
+
+input DoctorCreateOneWithoutVerifacInput {
+  create: DoctorCreateWithoutVerifacInput
+  connect: DoctorWhereUniqueInput
+}
+
+input DoctorCreateWithoutAttendingInput {
+  id: ID
+  name: String!
+  specialization: String!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserCreateOneWithoutDoctorInput!
+  chamber: ChamberCreateManyWithoutDoctorInput
+  verifac: VerificationCodeCreateOneWithoutDoctorInput
+  profile: ProfileCreateOneWithoutDoctorInput
+}
+
+input DoctorCreateWithoutChamberInput {
+  id: ID
+  name: String!
+  specialization: String!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserCreateOneWithoutDoctorInput!
+  attending: AttendingCreateManyWithoutDoctorInput
+  verifac: VerificationCodeCreateOneWithoutDoctorInput
+  profile: ProfileCreateOneWithoutDoctorInput
+}
+
+input DoctorCreateWithoutProfileInput {
+  id: ID
+  name: String!
+  specialization: String!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserCreateOneWithoutDoctorInput!
+  attending: AttendingCreateManyWithoutDoctorInput
+  chamber: ChamberCreateManyWithoutDoctorInput
+  verifac: VerificationCodeCreateOneWithoutDoctorInput
 }
 
 input DoctorCreateWithoutUserInput {
@@ -66,6 +1080,25 @@ input DoctorCreateWithoutUserInput {
   address: String
   state: String
   zip: String
+  attending: AttendingCreateManyWithoutDoctorInput
+  chamber: ChamberCreateManyWithoutDoctorInput
+  verifac: VerificationCodeCreateOneWithoutDoctorInput
+  profile: ProfileCreateOneWithoutDoctorInput
+}
+
+input DoctorCreateWithoutVerifacInput {
+  id: ID
+  name: String!
+  specialization: String!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserCreateOneWithoutDoctorInput!
+  attending: AttendingCreateManyWithoutDoctorInput
+  chamber: ChamberCreateManyWithoutDoctorInput
+  profile: ProfileCreateOneWithoutDoctorInput
 }
 
 type DoctorEdge {
@@ -109,6 +1142,128 @@ type DoctorPreviousValues {
   zip: String
 }
 
+input DoctorScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  specialization: String
+  specialization_not: String
+  specialization_in: [String!]
+  specialization_not_in: [String!]
+  specialization_lt: String
+  specialization_lte: String
+  specialization_gt: String
+  specialization_gte: String
+  specialization_contains: String
+  specialization_not_contains: String
+  specialization_starts_with: String
+  specialization_not_starts_with: String
+  specialization_ends_with: String
+  specialization_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  emailVerification: Boolean
+  emailVerification_not: Boolean
+  phone: String
+  phone_not: String
+  phone_in: [String!]
+  phone_not_in: [String!]
+  phone_lt: String
+  phone_lte: String
+  phone_gt: String
+  phone_gte: String
+  phone_contains: String
+  phone_not_contains: String
+  phone_starts_with: String
+  phone_not_starts_with: String
+  phone_ends_with: String
+  phone_not_ends_with: String
+  address: String
+  address_not: String
+  address_in: [String!]
+  address_not_in: [String!]
+  address_lt: String
+  address_lte: String
+  address_gt: String
+  address_gte: String
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_not_starts_with: String
+  address_ends_with: String
+  address_not_ends_with: String
+  state: String
+  state_not: String
+  state_in: [String!]
+  state_not_in: [String!]
+  state_lt: String
+  state_lte: String
+  state_gt: String
+  state_gte: String
+  state_contains: String
+  state_not_contains: String
+  state_starts_with: String
+  state_not_starts_with: String
+  state_ends_with: String
+  state_not_ends_with: String
+  zip: String
+  zip_not: String
+  zip_in: [String!]
+  zip_not_in: [String!]
+  zip_lt: String
+  zip_lte: String
+  zip_gt: String
+  zip_gte: String
+  zip_contains: String
+  zip_not_contains: String
+  zip_starts_with: String
+  zip_not_starts_with: String
+  zip_ends_with: String
+  zip_not_ends_with: String
+  AND: [DoctorScalarWhereInput!]
+  OR: [DoctorScalarWhereInput!]
+  NOT: [DoctorScalarWhereInput!]
+}
+
 type DoctorSubscriptionPayload {
   mutation: MutationType!
   node: Doctor
@@ -136,6 +1291,20 @@ input DoctorUpdateInput {
   state: String
   zip: String
   user: UserUpdateOneRequiredWithoutDoctorInput
+  attending: AttendingUpdateManyWithoutDoctorInput
+  chamber: ChamberUpdateManyWithoutDoctorInput
+  verifac: VerificationCodeUpdateOneWithoutDoctorInput
+  profile: ProfileUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateManyDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
 }
 
 input DoctorUpdateManyMutationInput {
@@ -148,11 +1317,97 @@ input DoctorUpdateManyMutationInput {
   zip: String
 }
 
+input DoctorUpdateManyWithoutChamberInput {
+  create: [DoctorCreateWithoutChamberInput!]
+  delete: [DoctorWhereUniqueInput!]
+  connect: [DoctorWhereUniqueInput!]
+  set: [DoctorWhereUniqueInput!]
+  disconnect: [DoctorWhereUniqueInput!]
+  update: [DoctorUpdateWithWhereUniqueWithoutChamberInput!]
+  upsert: [DoctorUpsertWithWhereUniqueWithoutChamberInput!]
+  deleteMany: [DoctorScalarWhereInput!]
+  updateMany: [DoctorUpdateManyWithWhereNestedInput!]
+}
+
+input DoctorUpdateManyWithWhereNestedInput {
+  where: DoctorScalarWhereInput!
+  data: DoctorUpdateManyDataInput!
+}
+
 input DoctorUpdateOneRequiredWithoutUserInput {
   create: DoctorCreateWithoutUserInput
   update: DoctorUpdateWithoutUserDataInput
   upsert: DoctorUpsertWithoutUserInput
   connect: DoctorWhereUniqueInput
+}
+
+input DoctorUpdateOneWithoutAttendingInput {
+  create: DoctorCreateWithoutAttendingInput
+  update: DoctorUpdateWithoutAttendingDataInput
+  upsert: DoctorUpsertWithoutAttendingInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: DoctorWhereUniqueInput
+}
+
+input DoctorUpdateOneWithoutProfileInput {
+  create: DoctorCreateWithoutProfileInput
+  update: DoctorUpdateWithoutProfileDataInput
+  upsert: DoctorUpsertWithoutProfileInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: DoctorWhereUniqueInput
+}
+
+input DoctorUpdateOneWithoutVerifacInput {
+  create: DoctorCreateWithoutVerifacInput
+  update: DoctorUpdateWithoutVerifacDataInput
+  upsert: DoctorUpsertWithoutVerifacInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: DoctorWhereUniqueInput
+}
+
+input DoctorUpdateWithoutAttendingDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserUpdateOneRequiredWithoutDoctorInput
+  chamber: ChamberUpdateManyWithoutDoctorInput
+  verifac: VerificationCodeUpdateOneWithoutDoctorInput
+  profile: ProfileUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateWithoutChamberDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserUpdateOneRequiredWithoutDoctorInput
+  attending: AttendingUpdateManyWithoutDoctorInput
+  verifac: VerificationCodeUpdateOneWithoutDoctorInput
+  profile: ProfileUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateWithoutProfileDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserUpdateOneRequiredWithoutDoctorInput
+  attending: AttendingUpdateManyWithoutDoctorInput
+  chamber: ChamberUpdateManyWithoutDoctorInput
+  verifac: VerificationCodeUpdateOneWithoutDoctorInput
 }
 
 input DoctorUpdateWithoutUserDataInput {
@@ -163,11 +1418,55 @@ input DoctorUpdateWithoutUserDataInput {
   address: String
   state: String
   zip: String
+  attending: AttendingUpdateManyWithoutDoctorInput
+  chamber: ChamberUpdateManyWithoutDoctorInput
+  verifac: VerificationCodeUpdateOneWithoutDoctorInput
+  profile: ProfileUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateWithoutVerifacDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserUpdateOneRequiredWithoutDoctorInput
+  attending: AttendingUpdateManyWithoutDoctorInput
+  chamber: ChamberUpdateManyWithoutDoctorInput
+  profile: ProfileUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateWithWhereUniqueWithoutChamberInput {
+  where: DoctorWhereUniqueInput!
+  data: DoctorUpdateWithoutChamberDataInput!
+}
+
+input DoctorUpsertWithoutAttendingInput {
+  update: DoctorUpdateWithoutAttendingDataInput!
+  create: DoctorCreateWithoutAttendingInput!
+}
+
+input DoctorUpsertWithoutProfileInput {
+  update: DoctorUpdateWithoutProfileDataInput!
+  create: DoctorCreateWithoutProfileInput!
 }
 
 input DoctorUpsertWithoutUserInput {
   update: DoctorUpdateWithoutUserDataInput!
   create: DoctorCreateWithoutUserInput!
+}
+
+input DoctorUpsertWithoutVerifacInput {
+  update: DoctorUpdateWithoutVerifacDataInput!
+  create: DoctorCreateWithoutVerifacInput!
+}
+
+input DoctorUpsertWithWhereUniqueWithoutChamberInput {
+  where: DoctorWhereUniqueInput!
+  update: DoctorUpdateWithoutChamberDataInput!
+  create: DoctorCreateWithoutChamberInput!
 }
 
 input DoctorWhereInput {
@@ -288,6 +1587,14 @@ input DoctorWhereInput {
   zip_ends_with: String
   zip_not_ends_with: String
   user: UserWhereInput
+  attending_every: AttendingWhereInput
+  attending_some: AttendingWhereInput
+  attending_none: AttendingWhereInput
+  chamber_every: ChamberWhereInput
+  chamber_some: ChamberWhereInput
+  chamber_none: ChamberWhereInput
+  verifac: VerificationCodeWhereInput
+  profile: ProfileWhereInput
   AND: [DoctorWhereInput!]
   OR: [DoctorWhereInput!]
   NOT: [DoctorWhereInput!]
@@ -297,15 +1604,627 @@ input DoctorWhereUniqueInput {
   id: ID
 }
 
+type Hospital {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  emailVerification: Boolean
+  name: String!
+  profile: Profile!
+  controllers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment!]
+  location: Location
+}
+
+type HospitalConnection {
+  pageInfo: PageInfo!
+  edges: [HospitalEdge]!
+  aggregate: AggregateHospital!
+}
+
+input HospitalCreateInput {
+  id: ID
+  emailVerification: Boolean
+  name: String!
+  profile: ProfileCreateOneWithoutHospitalInput!
+  controllers: UserCreateManyWithoutHospitalInput
+  appointments: AppointmentCreateManyWithoutHospitalInput
+  location: LocationCreateOneWithoutHospitalInput
+}
+
+input HospitalCreateOneWithoutAppointmentsInput {
+  create: HospitalCreateWithoutAppointmentsInput
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalCreateOneWithoutControllersInput {
+  create: HospitalCreateWithoutControllersInput
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalCreateOneWithoutLocationInput {
+  create: HospitalCreateWithoutLocationInput
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalCreateOneWithoutProfileInput {
+  create: HospitalCreateWithoutProfileInput
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalCreateWithoutAppointmentsInput {
+  id: ID
+  emailVerification: Boolean
+  name: String!
+  profile: ProfileCreateOneWithoutHospitalInput!
+  controllers: UserCreateManyWithoutHospitalInput
+  location: LocationCreateOneWithoutHospitalInput
+}
+
+input HospitalCreateWithoutControllersInput {
+  id: ID
+  emailVerification: Boolean
+  name: String!
+  profile: ProfileCreateOneWithoutHospitalInput!
+  appointments: AppointmentCreateManyWithoutHospitalInput
+  location: LocationCreateOneWithoutHospitalInput
+}
+
+input HospitalCreateWithoutLocationInput {
+  id: ID
+  emailVerification: Boolean
+  name: String!
+  profile: ProfileCreateOneWithoutHospitalInput!
+  controllers: UserCreateManyWithoutHospitalInput
+  appointments: AppointmentCreateManyWithoutHospitalInput
+}
+
+input HospitalCreateWithoutProfileInput {
+  id: ID
+  emailVerification: Boolean
+  name: String!
+  controllers: UserCreateManyWithoutHospitalInput
+  appointments: AppointmentCreateManyWithoutHospitalInput
+  location: LocationCreateOneWithoutHospitalInput
+}
+
+type HospitalEdge {
+  node: Hospital!
+  cursor: String!
+}
+
+enum HospitalOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  emailVerification_ASC
+  emailVerification_DESC
+  name_ASC
+  name_DESC
+}
+
+type HospitalPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  emailVerification: Boolean
+  name: String!
+}
+
+type HospitalSubscriptionPayload {
+  mutation: MutationType!
+  node: Hospital
+  updatedFields: [String!]
+  previousValues: HospitalPreviousValues
+}
+
+input HospitalSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: HospitalWhereInput
+  AND: [HospitalSubscriptionWhereInput!]
+  OR: [HospitalSubscriptionWhereInput!]
+  NOT: [HospitalSubscriptionWhereInput!]
+}
+
+input HospitalUpdateInput {
+  emailVerification: Boolean
+  name: String
+  profile: ProfileUpdateOneRequiredWithoutHospitalInput
+  controllers: UserUpdateManyWithoutHospitalInput
+  appointments: AppointmentUpdateManyWithoutHospitalInput
+  location: LocationUpdateOneWithoutHospitalInput
+}
+
+input HospitalUpdateManyMutationInput {
+  emailVerification: Boolean
+  name: String
+}
+
+input HospitalUpdateOneWithoutAppointmentsInput {
+  create: HospitalCreateWithoutAppointmentsInput
+  update: HospitalUpdateWithoutAppointmentsDataInput
+  upsert: HospitalUpsertWithoutAppointmentsInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalUpdateOneWithoutControllersInput {
+  create: HospitalCreateWithoutControllersInput
+  update: HospitalUpdateWithoutControllersDataInput
+  upsert: HospitalUpsertWithoutControllersInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalUpdateOneWithoutLocationInput {
+  create: HospitalCreateWithoutLocationInput
+  update: HospitalUpdateWithoutLocationDataInput
+  upsert: HospitalUpsertWithoutLocationInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalUpdateOneWithoutProfileInput {
+  create: HospitalCreateWithoutProfileInput
+  update: HospitalUpdateWithoutProfileDataInput
+  upsert: HospitalUpsertWithoutProfileInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalUpdateWithoutAppointmentsDataInput {
+  emailVerification: Boolean
+  name: String
+  profile: ProfileUpdateOneRequiredWithoutHospitalInput
+  controllers: UserUpdateManyWithoutHospitalInput
+  location: LocationUpdateOneWithoutHospitalInput
+}
+
+input HospitalUpdateWithoutControllersDataInput {
+  emailVerification: Boolean
+  name: String
+  profile: ProfileUpdateOneRequiredWithoutHospitalInput
+  appointments: AppointmentUpdateManyWithoutHospitalInput
+  location: LocationUpdateOneWithoutHospitalInput
+}
+
+input HospitalUpdateWithoutLocationDataInput {
+  emailVerification: Boolean
+  name: String
+  profile: ProfileUpdateOneRequiredWithoutHospitalInput
+  controllers: UserUpdateManyWithoutHospitalInput
+  appointments: AppointmentUpdateManyWithoutHospitalInput
+}
+
+input HospitalUpdateWithoutProfileDataInput {
+  emailVerification: Boolean
+  name: String
+  controllers: UserUpdateManyWithoutHospitalInput
+  appointments: AppointmentUpdateManyWithoutHospitalInput
+  location: LocationUpdateOneWithoutHospitalInput
+}
+
+input HospitalUpsertWithoutAppointmentsInput {
+  update: HospitalUpdateWithoutAppointmentsDataInput!
+  create: HospitalCreateWithoutAppointmentsInput!
+}
+
+input HospitalUpsertWithoutControllersInput {
+  update: HospitalUpdateWithoutControllersDataInput!
+  create: HospitalCreateWithoutControllersInput!
+}
+
+input HospitalUpsertWithoutLocationInput {
+  update: HospitalUpdateWithoutLocationDataInput!
+  create: HospitalCreateWithoutLocationInput!
+}
+
+input HospitalUpsertWithoutProfileInput {
+  update: HospitalUpdateWithoutProfileDataInput!
+  create: HospitalCreateWithoutProfileInput!
+}
+
+input HospitalWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  emailVerification: Boolean
+  emailVerification_not: Boolean
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  profile: ProfileWhereInput
+  controllers_every: UserWhereInput
+  controllers_some: UserWhereInput
+  controllers_none: UserWhereInput
+  appointments_every: AppointmentWhereInput
+  appointments_some: AppointmentWhereInput
+  appointments_none: AppointmentWhereInput
+  location: LocationWhereInput
+  AND: [HospitalWhereInput!]
+  OR: [HospitalWhereInput!]
+  NOT: [HospitalWhereInput!]
+}
+
+input HospitalWhereUniqueInput {
+  id: ID
+}
+
+type Location {
+  id: ID!
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  hospital: Hospital
+  chamber: Chamber
+}
+
+type LocationConnection {
+  pageInfo: PageInfo!
+  edges: [LocationEdge]!
+  aggregate: AggregateLocation!
+}
+
+input LocationCreateInput {
+  id: ID
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  hospital: HospitalCreateOneWithoutLocationInput
+  chamber: ChamberCreateOneWithoutLocationInput
+}
+
+input LocationCreateOneWithoutChamberInput {
+  create: LocationCreateWithoutChamberInput
+  connect: LocationWhereUniqueInput
+}
+
+input LocationCreateOneWithoutHospitalInput {
+  create: LocationCreateWithoutHospitalInput
+  connect: LocationWhereUniqueInput
+}
+
+input LocationCreateWithoutChamberInput {
+  id: ID
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  hospital: HospitalCreateOneWithoutLocationInput
+}
+
+input LocationCreateWithoutHospitalInput {
+  id: ID
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  chamber: ChamberCreateOneWithoutLocationInput
+}
+
+type LocationEdge {
+  node: Location!
+  cursor: String!
+}
+
+enum LocationOrderByInput {
+  id_ASC
+  id_DESC
+  address_ASC
+  address_DESC
+  slug_ASC
+  slug_DESC
+  lat_ASC
+  lat_DESC
+  lng_ASC
+  lng_DESC
+  addressID_ASC
+  addressID_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type LocationPreviousValues {
+  id: ID!
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type LocationSubscriptionPayload {
+  mutation: MutationType!
+  node: Location
+  updatedFields: [String!]
+  previousValues: LocationPreviousValues
+}
+
+input LocationSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: LocationWhereInput
+  AND: [LocationSubscriptionWhereInput!]
+  OR: [LocationSubscriptionWhereInput!]
+  NOT: [LocationSubscriptionWhereInput!]
+}
+
+input LocationUpdateInput {
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  hospital: HospitalUpdateOneWithoutLocationInput
+  chamber: ChamberUpdateOneWithoutLocationInput
+}
+
+input LocationUpdateManyMutationInput {
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+}
+
+input LocationUpdateOneWithoutChamberInput {
+  create: LocationCreateWithoutChamberInput
+  update: LocationUpdateWithoutChamberDataInput
+  upsert: LocationUpsertWithoutChamberInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: LocationWhereUniqueInput
+}
+
+input LocationUpdateOneWithoutHospitalInput {
+  create: LocationCreateWithoutHospitalInput
+  update: LocationUpdateWithoutHospitalDataInput
+  upsert: LocationUpsertWithoutHospitalInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: LocationWhereUniqueInput
+}
+
+input LocationUpdateWithoutChamberDataInput {
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  hospital: HospitalUpdateOneWithoutLocationInput
+}
+
+input LocationUpdateWithoutHospitalDataInput {
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  chamber: ChamberUpdateOneWithoutLocationInput
+}
+
+input LocationUpsertWithoutChamberInput {
+  update: LocationUpdateWithoutChamberDataInput!
+  create: LocationCreateWithoutChamberInput!
+}
+
+input LocationUpsertWithoutHospitalInput {
+  update: LocationUpdateWithoutHospitalDataInput!
+  create: LocationCreateWithoutHospitalInput!
+}
+
+input LocationWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  address: String
+  address_not: String
+  address_in: [String!]
+  address_not_in: [String!]
+  address_lt: String
+  address_lte: String
+  address_gt: String
+  address_gte: String
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_not_starts_with: String
+  address_ends_with: String
+  address_not_ends_with: String
+  slug: String
+  slug_not: String
+  slug_in: [String!]
+  slug_not_in: [String!]
+  slug_lt: String
+  slug_lte: String
+  slug_gt: String
+  slug_gte: String
+  slug_contains: String
+  slug_not_contains: String
+  slug_starts_with: String
+  slug_not_starts_with: String
+  slug_ends_with: String
+  slug_not_ends_with: String
+  lat: String
+  lat_not: String
+  lat_in: [String!]
+  lat_not_in: [String!]
+  lat_lt: String
+  lat_lte: String
+  lat_gt: String
+  lat_gte: String
+  lat_contains: String
+  lat_not_contains: String
+  lat_starts_with: String
+  lat_not_starts_with: String
+  lat_ends_with: String
+  lat_not_ends_with: String
+  lng: String
+  lng_not: String
+  lng_in: [String!]
+  lng_not_in: [String!]
+  lng_lt: String
+  lng_lte: String
+  lng_gt: String
+  lng_gte: String
+  lng_contains: String
+  lng_not_contains: String
+  lng_starts_with: String
+  lng_not_starts_with: String
+  lng_ends_with: String
+  lng_not_ends_with: String
+  addressID: String
+  addressID_not: String
+  addressID_in: [String!]
+  addressID_not_in: [String!]
+  addressID_lt: String
+  addressID_lte: String
+  addressID_gt: String
+  addressID_gte: String
+  addressID_contains: String
+  addressID_not_contains: String
+  addressID_starts_with: String
+  addressID_not_starts_with: String
+  addressID_ends_with: String
+  addressID_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  hospital: HospitalWhereInput
+  chamber: ChamberWhereInput
+  AND: [LocationWhereInput!]
+  OR: [LocationWhereInput!]
+  NOT: [LocationWhereInput!]
+}
+
+input LocationWhereUniqueInput {
+  id: ID
+}
+
 scalar Long
 
 type Mutation {
+  createAppointment(data: AppointmentCreateInput!): Appointment!
+  updateAppointment(data: AppointmentUpdateInput!, where: AppointmentWhereUniqueInput!): Appointment
+  updateManyAppointments(data: AppointmentUpdateManyMutationInput!, where: AppointmentWhereInput): BatchPayload!
+  upsertAppointment(where: AppointmentWhereUniqueInput!, create: AppointmentCreateInput!, update: AppointmentUpdateInput!): Appointment!
+  deleteAppointment(where: AppointmentWhereUniqueInput!): Appointment
+  deleteManyAppointments(where: AppointmentWhereInput): BatchPayload!
+  createAttending(data: AttendingCreateInput!): Attending!
+  updateAttending(data: AttendingUpdateInput!, where: AttendingWhereUniqueInput!): Attending
+  upsertAttending(where: AttendingWhereUniqueInput!, create: AttendingCreateInput!, update: AttendingUpdateInput!): Attending!
+  deleteAttending(where: AttendingWhereUniqueInput!): Attending
+  deleteManyAttendings(where: AttendingWhereInput): BatchPayload!
+  createChamber(data: ChamberCreateInput!): Chamber!
+  updateChamber(data: ChamberUpdateInput!, where: ChamberWhereUniqueInput!): Chamber
+  updateManyChambers(data: ChamberUpdateManyMutationInput!, where: ChamberWhereInput): BatchPayload!
+  upsertChamber(where: ChamberWhereUniqueInput!, create: ChamberCreateInput!, update: ChamberUpdateInput!): Chamber!
+  deleteChamber(where: ChamberWhereUniqueInput!): Chamber
+  deleteManyChambers(where: ChamberWhereInput): BatchPayload!
   createDoctor(data: DoctorCreateInput!): Doctor!
   updateDoctor(data: DoctorUpdateInput!, where: DoctorWhereUniqueInput!): Doctor
   updateManyDoctors(data: DoctorUpdateManyMutationInput!, where: DoctorWhereInput): BatchPayload!
   upsertDoctor(where: DoctorWhereUniqueInput!, create: DoctorCreateInput!, update: DoctorUpdateInput!): Doctor!
   deleteDoctor(where: DoctorWhereUniqueInput!): Doctor
   deleteManyDoctors(where: DoctorWhereInput): BatchPayload!
+  createHospital(data: HospitalCreateInput!): Hospital!
+  updateHospital(data: HospitalUpdateInput!, where: HospitalWhereUniqueInput!): Hospital
+  updateManyHospitals(data: HospitalUpdateManyMutationInput!, where: HospitalWhereInput): BatchPayload!
+  upsertHospital(where: HospitalWhereUniqueInput!, create: HospitalCreateInput!, update: HospitalUpdateInput!): Hospital!
+  deleteHospital(where: HospitalWhereUniqueInput!): Hospital
+  deleteManyHospitals(where: HospitalWhereInput): BatchPayload!
+  createLocation(data: LocationCreateInput!): Location!
+  updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
+  updateManyLocations(data: LocationUpdateManyMutationInput!, where: LocationWhereInput): BatchPayload!
+  upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
+  deleteLocation(where: LocationWhereUniqueInput!): Location
+  deleteManyLocations(where: LocationWhereInput): BatchPayload!
   createProfile(data: ProfileCreateInput!): Profile!
   updateProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
   updateManyProfiles(data: ProfileUpdateManyMutationInput!, where: ProfileWhereInput): BatchPayload!
@@ -318,6 +2237,12 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createVerificationCode(data: VerificationCodeCreateInput!): VerificationCode!
+  updateVerificationCode(data: VerificationCodeUpdateInput!, where: VerificationCodeWhereUniqueInput!): VerificationCode
+  updateManyVerificationCodes(data: VerificationCodeUpdateManyMutationInput!, where: VerificationCodeWhereInput): BatchPayload!
+  upsertVerificationCode(where: VerificationCodeWhereUniqueInput!, create: VerificationCodeCreateInput!, update: VerificationCodeUpdateInput!): VerificationCode!
+  deleteVerificationCode(where: VerificationCodeWhereUniqueInput!): VerificationCode
+  deleteManyVerificationCodes(where: VerificationCodeWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -343,6 +2268,8 @@ type Profile {
   createdAt: DateTime!
   updatedAt: DateTime!
   active: Boolean
+  hospital: Hospital
+  doctor: Doctor
 }
 
 type ProfileConnection {
@@ -355,6 +2282,32 @@ input ProfileCreateInput {
   id: ID
   phone: String!
   active: Boolean
+  hospital: HospitalCreateOneWithoutProfileInput
+  doctor: DoctorCreateOneWithoutProfileInput
+}
+
+input ProfileCreateOneWithoutDoctorInput {
+  create: ProfileCreateWithoutDoctorInput
+  connect: ProfileWhereUniqueInput
+}
+
+input ProfileCreateOneWithoutHospitalInput {
+  create: ProfileCreateWithoutHospitalInput
+  connect: ProfileWhereUniqueInput
+}
+
+input ProfileCreateWithoutDoctorInput {
+  id: ID
+  phone: String!
+  active: Boolean
+  hospital: HospitalCreateOneWithoutProfileInput
+}
+
+input ProfileCreateWithoutHospitalInput {
+  id: ID
+  phone: String!
+  active: Boolean
+  doctor: DoctorCreateOneWithoutProfileInput
 }
 
 type ProfileEdge {
@@ -404,11 +2357,51 @@ input ProfileSubscriptionWhereInput {
 input ProfileUpdateInput {
   phone: String
   active: Boolean
+  hospital: HospitalUpdateOneWithoutProfileInput
+  doctor: DoctorUpdateOneWithoutProfileInput
 }
 
 input ProfileUpdateManyMutationInput {
   phone: String
   active: Boolean
+}
+
+input ProfileUpdateOneRequiredWithoutHospitalInput {
+  create: ProfileCreateWithoutHospitalInput
+  update: ProfileUpdateWithoutHospitalDataInput
+  upsert: ProfileUpsertWithoutHospitalInput
+  connect: ProfileWhereUniqueInput
+}
+
+input ProfileUpdateOneWithoutDoctorInput {
+  create: ProfileCreateWithoutDoctorInput
+  update: ProfileUpdateWithoutDoctorDataInput
+  upsert: ProfileUpsertWithoutDoctorInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: ProfileWhereUniqueInput
+}
+
+input ProfileUpdateWithoutDoctorDataInput {
+  phone: String
+  active: Boolean
+  hospital: HospitalUpdateOneWithoutProfileInput
+}
+
+input ProfileUpdateWithoutHospitalDataInput {
+  phone: String
+  active: Boolean
+  doctor: DoctorUpdateOneWithoutProfileInput
+}
+
+input ProfileUpsertWithoutDoctorInput {
+  update: ProfileUpdateWithoutDoctorDataInput!
+  create: ProfileCreateWithoutDoctorInput!
+}
+
+input ProfileUpsertWithoutHospitalInput {
+  update: ProfileUpdateWithoutHospitalDataInput!
+  create: ProfileCreateWithoutHospitalInput!
 }
 
 input ProfileWhereInput {
@@ -458,6 +2451,8 @@ input ProfileWhereInput {
   updatedAt_gte: DateTime
   active: Boolean
   active_not: Boolean
+  hospital: HospitalWhereInput
+  doctor: DoctorWhereInput
   AND: [ProfileWhereInput!]
   OR: [ProfileWhereInput!]
   NOT: [ProfileWhereInput!]
@@ -468,22 +2463,46 @@ input ProfileWhereUniqueInput {
 }
 
 type Query {
+  appointment(where: AppointmentWhereUniqueInput!): Appointment
+  appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment]!
+  appointmentsConnection(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AppointmentConnection!
+  attending(where: AttendingWhereUniqueInput!): Attending
+  attendings(where: AttendingWhereInput, orderBy: AttendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Attending]!
+  attendingsConnection(where: AttendingWhereInput, orderBy: AttendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AttendingConnection!
+  chamber(where: ChamberWhereUniqueInput!): Chamber
+  chambers(where: ChamberWhereInput, orderBy: ChamberOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chamber]!
+  chambersConnection(where: ChamberWhereInput, orderBy: ChamberOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChamberConnection!
   doctor(where: DoctorWhereUniqueInput!): Doctor
   doctors(where: DoctorWhereInput, orderBy: DoctorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Doctor]!
   doctorsConnection(where: DoctorWhereInput, orderBy: DoctorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoctorConnection!
+  hospital(where: HospitalWhereUniqueInput!): Hospital
+  hospitals(where: HospitalWhereInput, orderBy: HospitalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hospital]!
+  hospitalsConnection(where: HospitalWhereInput, orderBy: HospitalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HospitalConnection!
+  location(where: LocationWhereUniqueInput!): Location
+  locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
+  locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
   profile(where: ProfileWhereUniqueInput!): Profile
   profiles(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Profile]!
   profilesConnection(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProfileConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  verificationCode(where: VerificationCodeWhereUniqueInput!): VerificationCode
+  verificationCodes(where: VerificationCodeWhereInput, orderBy: VerificationCodeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VerificationCode]!
+  verificationCodesConnection(where: VerificationCodeWhereInput, orderBy: VerificationCodeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VerificationCodeConnection!
   node(id: ID!): Node
 }
 
 type Subscription {
+  appointment(where: AppointmentSubscriptionWhereInput): AppointmentSubscriptionPayload
+  attending(where: AttendingSubscriptionWhereInput): AttendingSubscriptionPayload
+  chamber(where: ChamberSubscriptionWhereInput): ChamberSubscriptionPayload
   doctor(where: DoctorSubscriptionWhereInput): DoctorSubscriptionPayload
+  hospital(where: HospitalSubscriptionWhereInput): HospitalSubscriptionPayload
+  location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
   profile(where: ProfileSubscriptionWhereInput): ProfileSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  verificationCode(where: VerificationCodeSubscriptionWhereInput): VerificationCodeSubscriptionPayload
 }
 
 type User {
@@ -496,6 +2515,8 @@ type User {
   createdAt: DateTime!
   updatedAt: DateTime!
   doctor: Doctor!
+  verifac: VerificationCode
+  hospital: Hospital
 }
 
 type UserConnection {
@@ -512,10 +2533,22 @@ input UserCreateInput {
   emailVerification: Boolean
   roles: UserRoles
   doctor: DoctorCreateOneWithoutUserInput!
+  verifac: VerificationCodeCreateOneWithoutUserInput
+  hospital: HospitalCreateOneWithoutControllersInput
+}
+
+input UserCreateManyWithoutHospitalInput {
+  create: [UserCreateWithoutHospitalInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateOneWithoutDoctorInput {
   create: UserCreateWithoutDoctorInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutVerifacInput {
+  create: UserCreateWithoutVerifacInput
   connect: UserWhereUniqueInput
 }
 
@@ -526,6 +2559,30 @@ input UserCreateWithoutDoctorInput {
   password: String!
   emailVerification: Boolean
   roles: UserRoles
+  verifac: VerificationCodeCreateOneWithoutUserInput
+  hospital: HospitalCreateOneWithoutControllersInput
+}
+
+input UserCreateWithoutHospitalInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  emailVerification: Boolean
+  roles: UserRoles
+  doctor: DoctorCreateOneWithoutUserInput!
+  verifac: VerificationCodeCreateOneWithoutUserInput
+}
+
+input UserCreateWithoutVerifacInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  emailVerification: Boolean
+  roles: UserRoles
+  doctor: DoctorCreateOneWithoutUserInput!
+  hospital: HospitalCreateOneWithoutControllersInput
 }
 
 type UserEdge {
@@ -572,6 +2629,90 @@ enum UserRoles {
   HOSPITAL
 }
 
+input UserScalarWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  email: String
+  email_not: String
+  email_in: [String!]
+  email_not_in: [String!]
+  email_lt: String
+  email_lte: String
+  email_gt: String
+  email_gte: String
+  email_contains: String
+  email_not_contains: String
+  email_starts_with: String
+  email_not_starts_with: String
+  email_ends_with: String
+  email_not_ends_with: String
+  password: String
+  password_not: String
+  password_in: [String!]
+  password_not_in: [String!]
+  password_lt: String
+  password_lte: String
+  password_gt: String
+  password_gte: String
+  password_contains: String
+  password_not_contains: String
+  password_starts_with: String
+  password_not_starts_with: String
+  password_ends_with: String
+  password_not_ends_with: String
+  emailVerification: Boolean
+  emailVerification_not: Boolean
+  roles: UserRoles
+  roles_not: UserRoles
+  roles_in: [UserRoles!]
+  roles_not_in: [UserRoles!]
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  AND: [UserScalarWhereInput!]
+  OR: [UserScalarWhereInput!]
+  NOT: [UserScalarWhereInput!]
+}
+
 type UserSubscriptionPayload {
   mutation: MutationType!
   node: User
@@ -597,6 +2738,16 @@ input UserUpdateInput {
   emailVerification: Boolean
   roles: UserRoles
   doctor: DoctorUpdateOneRequiredWithoutUserInput
+  verifac: VerificationCodeUpdateOneWithoutUserInput
+  hospital: HospitalUpdateOneWithoutControllersInput
+}
+
+input UserUpdateManyDataInput {
+  name: String
+  email: String
+  password: String
+  emailVerification: Boolean
+  roles: UserRoles
 }
 
 input UserUpdateManyMutationInput {
@@ -607,10 +2758,36 @@ input UserUpdateManyMutationInput {
   roles: UserRoles
 }
 
+input UserUpdateManyWithoutHospitalInput {
+  create: [UserCreateWithoutHospitalInput!]
+  delete: [UserWhereUniqueInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutHospitalInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutHospitalInput!]
+  deleteMany: [UserScalarWhereInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
+}
+
 input UserUpdateOneRequiredWithoutDoctorInput {
   create: UserCreateWithoutDoctorInput
   update: UserUpdateWithoutDoctorDataInput
   upsert: UserUpsertWithoutDoctorInput
+  connect: UserWhereUniqueInput
+}
+
+input UserUpdateOneWithoutVerifacInput {
+  create: UserCreateWithoutVerifacInput
+  update: UserUpdateWithoutVerifacDataInput
+  upsert: UserUpsertWithoutVerifacInput
+  delete: Boolean
+  disconnect: Boolean
   connect: UserWhereUniqueInput
 }
 
@@ -620,11 +2797,49 @@ input UserUpdateWithoutDoctorDataInput {
   password: String
   emailVerification: Boolean
   roles: UserRoles
+  verifac: VerificationCodeUpdateOneWithoutUserInput
+  hospital: HospitalUpdateOneWithoutControllersInput
+}
+
+input UserUpdateWithoutHospitalDataInput {
+  name: String
+  email: String
+  password: String
+  emailVerification: Boolean
+  roles: UserRoles
+  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  verifac: VerificationCodeUpdateOneWithoutUserInput
+}
+
+input UserUpdateWithoutVerifacDataInput {
+  name: String
+  email: String
+  password: String
+  emailVerification: Boolean
+  roles: UserRoles
+  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  hospital: HospitalUpdateOneWithoutControllersInput
+}
+
+input UserUpdateWithWhereUniqueWithoutHospitalInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutHospitalDataInput!
 }
 
 input UserUpsertWithoutDoctorInput {
   update: UserUpdateWithoutDoctorDataInput!
   create: UserCreateWithoutDoctorInput!
+}
+
+input UserUpsertWithoutVerifacInput {
+  update: UserUpdateWithoutVerifacDataInput!
+  create: UserCreateWithoutVerifacInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutHospitalInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutHospitalDataInput!
+  create: UserCreateWithoutHospitalInput!
 }
 
 input UserWhereInput {
@@ -707,6 +2922,8 @@ input UserWhereInput {
   updatedAt_gt: DateTime
   updatedAt_gte: DateTime
   doctor: DoctorWhereInput
+  verifac: VerificationCodeWhereInput
+  hospital: HospitalWhereInput
   AND: [UserWhereInput!]
   OR: [UserWhereInput!]
   NOT: [UserWhereInput!]
@@ -715,5 +2932,194 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   id: ID
   email: String
+}
+
+type VerificationCode {
+  id: ID!
+  uid: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User
+  doctor: Doctor
+}
+
+type VerificationCodeConnection {
+  pageInfo: PageInfo!
+  edges: [VerificationCodeEdge]!
+  aggregate: AggregateVerificationCode!
+}
+
+input VerificationCodeCreateInput {
+  id: ID
+  uid: String!
+  user: UserCreateOneWithoutVerifacInput
+  doctor: DoctorCreateOneWithoutVerifacInput
+}
+
+input VerificationCodeCreateOneWithoutDoctorInput {
+  create: VerificationCodeCreateWithoutDoctorInput
+  connect: VerificationCodeWhereUniqueInput
+}
+
+input VerificationCodeCreateOneWithoutUserInput {
+  create: VerificationCodeCreateWithoutUserInput
+  connect: VerificationCodeWhereUniqueInput
+}
+
+input VerificationCodeCreateWithoutDoctorInput {
+  id: ID
+  uid: String!
+  user: UserCreateOneWithoutVerifacInput
+}
+
+input VerificationCodeCreateWithoutUserInput {
+  id: ID
+  uid: String!
+  doctor: DoctorCreateOneWithoutVerifacInput
+}
+
+type VerificationCodeEdge {
+  node: VerificationCode!
+  cursor: String!
+}
+
+enum VerificationCodeOrderByInput {
+  id_ASC
+  id_DESC
+  uid_ASC
+  uid_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type VerificationCodePreviousValues {
+  id: ID!
+  uid: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type VerificationCodeSubscriptionPayload {
+  mutation: MutationType!
+  node: VerificationCode
+  updatedFields: [String!]
+  previousValues: VerificationCodePreviousValues
+}
+
+input VerificationCodeSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: VerificationCodeWhereInput
+  AND: [VerificationCodeSubscriptionWhereInput!]
+  OR: [VerificationCodeSubscriptionWhereInput!]
+  NOT: [VerificationCodeSubscriptionWhereInput!]
+}
+
+input VerificationCodeUpdateInput {
+  uid: String
+  user: UserUpdateOneWithoutVerifacInput
+  doctor: DoctorUpdateOneWithoutVerifacInput
+}
+
+input VerificationCodeUpdateManyMutationInput {
+  uid: String
+}
+
+input VerificationCodeUpdateOneWithoutDoctorInput {
+  create: VerificationCodeCreateWithoutDoctorInput
+  update: VerificationCodeUpdateWithoutDoctorDataInput
+  upsert: VerificationCodeUpsertWithoutDoctorInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: VerificationCodeWhereUniqueInput
+}
+
+input VerificationCodeUpdateOneWithoutUserInput {
+  create: VerificationCodeCreateWithoutUserInput
+  update: VerificationCodeUpdateWithoutUserDataInput
+  upsert: VerificationCodeUpsertWithoutUserInput
+  delete: Boolean
+  disconnect: Boolean
+  connect: VerificationCodeWhereUniqueInput
+}
+
+input VerificationCodeUpdateWithoutDoctorDataInput {
+  uid: String
+  user: UserUpdateOneWithoutVerifacInput
+}
+
+input VerificationCodeUpdateWithoutUserDataInput {
+  uid: String
+  doctor: DoctorUpdateOneWithoutVerifacInput
+}
+
+input VerificationCodeUpsertWithoutDoctorInput {
+  update: VerificationCodeUpdateWithoutDoctorDataInput!
+  create: VerificationCodeCreateWithoutDoctorInput!
+}
+
+input VerificationCodeUpsertWithoutUserInput {
+  update: VerificationCodeUpdateWithoutUserDataInput!
+  create: VerificationCodeCreateWithoutUserInput!
+}
+
+input VerificationCodeWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  uid: String
+  uid_not: String
+  uid_in: [String!]
+  uid_not_in: [String!]
+  uid_lt: String
+  uid_lte: String
+  uid_gt: String
+  uid_gte: String
+  uid_contains: String
+  uid_not_contains: String
+  uid_starts_with: String
+  uid_not_starts_with: String
+  uid_ends_with: String
+  uid_not_ends_with: String
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  user: UserWhereInput
+  doctor: DoctorWhereInput
+  AND: [VerificationCodeWhereInput!]
+  OR: [VerificationCodeWhereInput!]
+  NOT: [VerificationCodeWhereInput!]
+}
+
+input VerificationCodeWhereUniqueInput {
+  id: ID
 }
 `

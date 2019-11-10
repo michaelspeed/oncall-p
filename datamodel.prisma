@@ -17,6 +17,8 @@ type User {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   doctor: Doctor!
+  verifac: VerificationCode
+  hospital: Hospital
 }
 
 type Profile {
@@ -25,6 +27,21 @@ type Profile {
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   active: Boolean
+  hospital: Hospital
+  doctor: Doctor
+}
+
+type Location {
+  id: ID! @id
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  hospital: Hospital @relation(link: TABLE)
+  chamber: Chamber @relation(link: TABLE)
 }
 
 type Doctor {
@@ -39,6 +56,10 @@ type Doctor {
   state: String
   zip: String
   user: User! @relation(link: TABLE)
+  attending: [Attending!]!
+  chamber: [Chamber!]!
+  verifac: VerificationCode
+  profile: Profile @relation(link: TABLE)
 }
 
 type Appointment {
@@ -47,4 +68,48 @@ type Appointment {
   updatedAt: DateTime! @updatedAt
   start_time: DateTime!
   end_time: DateTime!
+  chamber: Chamber
+  hospital: Hospital
+}
+
+type Hospital {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  emailVerification: Boolean @default(value: false)
+  name: String!
+  profile: Profile! @relation(link: TABLE)
+  controllers: [User] @relation(link: TABLE)
+  appointments: [Appointment] @relation(link: TABLE)
+  location: Location
+}
+
+type Attending {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  doctor: Doctor @relation(link: TABLE)
+  chamber: [Chamber]
+}
+
+type Chamber {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending: [Attending] @relation(link: TABLE)
+  appointments: [Appointment] @relation(link: TABLE)
+  doctor: [Doctor] @relation(link: TABLE)
+  location: Location
+}
+
+type VerificationCode {
+  id: ID! @id
+  uid: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  user: User @relation(link: TABLE)
+  doctor: Doctor @relation(link: TABLE)
 }
