@@ -1,0 +1,50 @@
+enum UserRoles {
+    ADMIN
+    USER
+    STAFF
+    DOCTOR
+    ATTENDING
+    HOSPITAL
+}
+
+type User {
+  id: ID! @id
+  name: String!
+  email: String! @unique
+  password: String!
+  emailVerification: Boolean @default(value: false)
+  roles: UserRoles @default(value: USER)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  doctor: Doctor!
+}
+
+type Profile {
+  id: ID! @id
+  phone: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  active: Boolean
+}
+
+type Doctor {
+  id: ID! @id
+  name: String!
+  specialization: String!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  emailVerification: Boolean @default(value: false)
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: User! @relation(link: TABLE)
+}
+
+type Appointment {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  start_time: DateTime!
+  end_time: DateTime!
+}
