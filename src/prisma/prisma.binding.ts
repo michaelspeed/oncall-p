@@ -2313,13 +2313,6 @@ input DoctorUpdateManyWithWhereNestedInput {
   data: DoctorUpdateManyDataInput!
 }
 
-input DoctorUpdateOneRequiredWithoutUserInput {
-  create: DoctorCreateWithoutUserInput
-  connect: DoctorWhereUniqueInput
-  update: DoctorUpdateWithoutUserDataInput
-  upsert: DoctorUpsertWithoutUserInput
-}
-
 input DoctorUpdateOneWithoutAttendingInput {
   create: DoctorCreateWithoutAttendingInput
   connect: DoctorWhereUniqueInput
@@ -2336,6 +2329,15 @@ input DoctorUpdateOneWithoutProfileInput {
   delete: Boolean
   update: DoctorUpdateWithoutProfileDataInput
   upsert: DoctorUpsertWithoutProfileInput
+}
+
+input DoctorUpdateOneWithoutUserInput {
+  create: DoctorCreateWithoutUserInput
+  connect: DoctorWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: DoctorUpdateWithoutUserDataInput
+  upsert: DoctorUpsertWithoutUserInput
 }
 
 input DoctorUpdateOneWithoutVerifacInput {
@@ -4181,7 +4183,7 @@ type User implements Node {
   roles: UserRoles
   createdAt: DateTime!
   updatedAt: DateTime!
-  doctor: Doctor!
+  doctor: Doctor
   verifac: VerificationCode
   hospital: Hospital
 }
@@ -4203,7 +4205,7 @@ input UserCreateInput {
   password: String!
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorCreateOneWithoutUserInput!
+  doctor: DoctorCreateOneWithoutUserInput
   verifac: VerificationCodeCreateOneWithoutUserInput
   hospital: HospitalCreateOneWithoutControllersInput
 }
@@ -4241,7 +4243,7 @@ input UserCreateWithoutHospitalInput {
   password: String!
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorCreateOneWithoutUserInput!
+  doctor: DoctorCreateOneWithoutUserInput
   verifac: VerificationCodeCreateOneWithoutUserInput
 }
 
@@ -4252,7 +4254,7 @@ input UserCreateWithoutVerifacInput {
   password: String!
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorCreateOneWithoutUserInput!
+  doctor: DoctorCreateOneWithoutUserInput
   hospital: HospitalCreateOneWithoutControllersInput
 }
 
@@ -4576,7 +4578,7 @@ input UserUpdateInput {
   password: String
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  doctor: DoctorUpdateOneWithoutUserInput
   verifac: VerificationCodeUpdateOneWithoutUserInput
   hospital: HospitalUpdateOneWithoutControllersInput
 }
@@ -4646,7 +4648,7 @@ input UserUpdateWithoutHospitalDataInput {
   password: String
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  doctor: DoctorUpdateOneWithoutUserInput
   verifac: VerificationCodeUpdateOneWithoutUserInput
 }
 
@@ -4656,7 +4658,7 @@ input UserUpdateWithoutVerifacDataInput {
   password: String
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  doctor: DoctorUpdateOneWithoutUserInput
   hospital: HospitalUpdateOneWithoutControllersInput
 }
 
@@ -6429,13 +6431,6 @@ export interface DoctorUpdateManyWithWhereNestedInput {
   data: DoctorUpdateManyDataInput
 }
 
-export interface DoctorUpdateOneRequiredWithoutUserInput {
-  create?: DoctorCreateWithoutUserInput | null
-  connect?: DoctorWhereUniqueInput | null
-  update?: DoctorUpdateWithoutUserDataInput | null
-  upsert?: DoctorUpsertWithoutUserInput | null
-}
-
 export interface DoctorUpdateOneWithoutAttendingInput {
   create?: DoctorCreateWithoutAttendingInput | null
   connect?: DoctorWhereUniqueInput | null
@@ -6452,6 +6447,15 @@ export interface DoctorUpdateOneWithoutProfileInput {
   delete?: Boolean | null
   update?: DoctorUpdateWithoutProfileDataInput | null
   upsert?: DoctorUpsertWithoutProfileInput | null
+}
+
+export interface DoctorUpdateOneWithoutUserInput {
+  create?: DoctorCreateWithoutUserInput | null
+  connect?: DoctorWhereUniqueInput | null
+  disconnect?: Boolean | null
+  delete?: Boolean | null
+  update?: DoctorUpdateWithoutUserDataInput | null
+  upsert?: DoctorUpsertWithoutUserInput | null
 }
 
 export interface DoctorUpdateOneWithoutVerifacInput {
@@ -7328,7 +7332,7 @@ export interface UserCreateInput {
   password: String
   emailVerification?: Boolean | null
   roles?: UserRoles | null
-  doctor: DoctorCreateOneWithoutUserInput
+  doctor?: DoctorCreateOneWithoutUserInput | null
   verifac?: VerificationCodeCreateOneWithoutUserInput | null
   hospital?: HospitalCreateOneWithoutControllersInput | null
 }
@@ -7366,7 +7370,7 @@ export interface UserCreateWithoutHospitalInput {
   password: String
   emailVerification?: Boolean | null
   roles?: UserRoles | null
-  doctor: DoctorCreateOneWithoutUserInput
+  doctor?: DoctorCreateOneWithoutUserInput | null
   verifac?: VerificationCodeCreateOneWithoutUserInput | null
 }
 
@@ -7377,7 +7381,7 @@ export interface UserCreateWithoutVerifacInput {
   password: String
   emailVerification?: Boolean | null
   roles?: UserRoles | null
-  doctor: DoctorCreateOneWithoutUserInput
+  doctor?: DoctorCreateOneWithoutUserInput | null
   hospital?: HospitalCreateOneWithoutControllersInput | null
 }
 
@@ -7482,7 +7486,7 @@ export interface UserUpdateInput {
   password?: String | null
   emailVerification?: Boolean | null
   roles?: UserRoles | null
-  doctor?: DoctorUpdateOneRequiredWithoutUserInput | null
+  doctor?: DoctorUpdateOneWithoutUserInput | null
   verifac?: VerificationCodeUpdateOneWithoutUserInput | null
   hospital?: HospitalUpdateOneWithoutControllersInput | null
 }
@@ -7552,7 +7556,7 @@ export interface UserUpdateWithoutHospitalDataInput {
   password?: String | null
   emailVerification?: Boolean | null
   roles?: UserRoles | null
-  doctor?: DoctorUpdateOneRequiredWithoutUserInput | null
+  doctor?: DoctorUpdateOneWithoutUserInput | null
   verifac?: VerificationCodeUpdateOneWithoutUserInput | null
 }
 
@@ -7562,7 +7566,7 @@ export interface UserUpdateWithoutVerifacDataInput {
   password?: String | null
   emailVerification?: Boolean | null
   roles?: UserRoles | null
-  doctor?: DoctorUpdateOneRequiredWithoutUserInput | null
+  doctor?: DoctorUpdateOneWithoutUserInput | null
   hospital?: HospitalUpdateOneWithoutControllersInput | null
 }
 
@@ -8220,7 +8224,7 @@ export interface User extends Node {
   roles?: UserRoles | null
   createdAt: DateTime
   updatedAt: DateTime
-  doctor: Doctor
+  doctor?: Doctor | null
   verifac?: VerificationCode | null
   hospital?: Hospital | null
 }

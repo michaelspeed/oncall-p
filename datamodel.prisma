@@ -16,7 +16,7 @@ type User {
   roles: UserRoles @default(value: USER)
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
-  doctor: Doctor!
+  doctor: Doctor
   verifac: VerificationCode
   hospital: Hospital
 }

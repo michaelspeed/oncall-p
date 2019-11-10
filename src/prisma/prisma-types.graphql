@@ -1,5 +1,5 @@
 # source: http://atmiyo.achtunglabs.co:4466
-# timestamp: Sun Nov 10 2019 23:23:41 GMT+0530 (India Standard Time)
+# timestamp: Sun Nov 10 2019 23:53:06 GMT+0530 (India Standard Time)
 
 type AggregateAppointment {
   count: Int!
@@ -2177,13 +2177,6 @@ input DoctorUpdateManyWithWhereNestedInput {
   data: DoctorUpdateManyDataInput!
 }
 
-input DoctorUpdateOneRequiredWithoutUserInput {
-  create: DoctorCreateWithoutUserInput
-  connect: DoctorWhereUniqueInput
-  update: DoctorUpdateWithoutUserDataInput
-  upsert: DoctorUpsertWithoutUserInput
-}
-
 input DoctorUpdateOneWithoutAttendingInput {
   create: DoctorCreateWithoutAttendingInput
   connect: DoctorWhereUniqueInput
@@ -2200,6 +2193,15 @@ input DoctorUpdateOneWithoutProfileInput {
   delete: Boolean
   update: DoctorUpdateWithoutProfileDataInput
   upsert: DoctorUpsertWithoutProfileInput
+}
+
+input DoctorUpdateOneWithoutUserInput {
+  create: DoctorCreateWithoutUserInput
+  connect: DoctorWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: DoctorUpdateWithoutUserDataInput
+  upsert: DoctorUpsertWithoutUserInput
 }
 
 input DoctorUpdateOneWithoutVerifacInput {
@@ -4045,7 +4047,7 @@ type User implements Node {
   roles: UserRoles
   createdAt: DateTime!
   updatedAt: DateTime!
-  doctor: Doctor!
+  doctor: Doctor
   verifac: VerificationCode
   hospital: Hospital
 }
@@ -4067,7 +4069,7 @@ input UserCreateInput {
   password: String!
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorCreateOneWithoutUserInput!
+  doctor: DoctorCreateOneWithoutUserInput
   verifac: VerificationCodeCreateOneWithoutUserInput
   hospital: HospitalCreateOneWithoutControllersInput
 }
@@ -4105,7 +4107,7 @@ input UserCreateWithoutHospitalInput {
   password: String!
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorCreateOneWithoutUserInput!
+  doctor: DoctorCreateOneWithoutUserInput
   verifac: VerificationCodeCreateOneWithoutUserInput
 }
 
@@ -4116,7 +4118,7 @@ input UserCreateWithoutVerifacInput {
   password: String!
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorCreateOneWithoutUserInput!
+  doctor: DoctorCreateOneWithoutUserInput
   hospital: HospitalCreateOneWithoutControllersInput
 }
 
@@ -4440,7 +4442,7 @@ input UserUpdateInput {
   password: String
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  doctor: DoctorUpdateOneWithoutUserInput
   verifac: VerificationCodeUpdateOneWithoutUserInput
   hospital: HospitalUpdateOneWithoutControllersInput
 }
@@ -4510,7 +4512,7 @@ input UserUpdateWithoutHospitalDataInput {
   password: String
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  doctor: DoctorUpdateOneWithoutUserInput
   verifac: VerificationCodeUpdateOneWithoutUserInput
 }
 
@@ -4520,7 +4522,7 @@ input UserUpdateWithoutVerifacDataInput {
   password: String
   emailVerification: Boolean
   roles: UserRoles
-  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  doctor: DoctorUpdateOneWithoutUserInput
   hospital: HospitalUpdateOneWithoutControllersInput
 }
 
