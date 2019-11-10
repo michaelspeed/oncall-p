@@ -1,0 +1,17 @@
+type UserResponse {
+    user: User
+    token: String
+    error: String
+}
+
+type Mutation {
+    createNewUser(email: String, name: String, password: String): UserResponse
+    signIn(email: String, password: String): UserResponse
+    escalateRoles(id: String, role: String): User
+}
+
+type Query {
+    currentUser: User
+    normalUsers: [User]
+    getUserByID(id: ID!): UserResponse
+}
