@@ -1,8 +1,883 @@
 # source: http://atmiyo.achtunglabs.co:4466
-# timestamp: Sun Nov 10 2019 16:33:08 GMT+0530 (India Standard Time)
+# timestamp: Sun Nov 10 2019 23:23:41 GMT+0530 (India Standard Time)
+
+type AggregateAppointment {
+  count: Int!
+}
+
+type AggregateAttending {
+  count: Int!
+}
+
+type AggregateChamber {
+  count: Int!
+}
+
+type AggregateDoctor {
+  count: Int!
+}
+
+type AggregateHospital {
+  count: Int!
+}
+
+type AggregateLocation {
+  count: Int!
+}
+
+type AggregateProfile {
+  count: Int!
+}
 
 type AggregateUser {
   count: Int!
+}
+
+type AggregateVerificationCode {
+  count: Int!
+}
+
+type Appointment implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  start_time: DateTime!
+  end_time: DateTime!
+  chamber: Chamber
+  hospital: Hospital
+}
+
+"""A connection to a list of items."""
+type AppointmentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AppointmentEdge]!
+  aggregate: AggregateAppointment!
+}
+
+input AppointmentCreateInput {
+  id: ID
+  start_time: DateTime!
+  end_time: DateTime!
+  chamber: ChamberCreateOneWithoutAppointmentsInput
+  hospital: HospitalCreateOneWithoutAppointmentsInput
+}
+
+input AppointmentCreateManyWithoutChamberInput {
+  create: [AppointmentCreateWithoutChamberInput!]
+  connect: [AppointmentWhereUniqueInput!]
+}
+
+input AppointmentCreateManyWithoutHospitalInput {
+  create: [AppointmentCreateWithoutHospitalInput!]
+  connect: [AppointmentWhereUniqueInput!]
+}
+
+input AppointmentCreateWithoutChamberInput {
+  id: ID
+  start_time: DateTime!
+  end_time: DateTime!
+  hospital: HospitalCreateOneWithoutAppointmentsInput
+}
+
+input AppointmentCreateWithoutHospitalInput {
+  id: ID
+  start_time: DateTime!
+  end_time: DateTime!
+  chamber: ChamberCreateOneWithoutAppointmentsInput
+}
+
+"""An edge in a connection."""
+type AppointmentEdge {
+  """The item at the end of the edge."""
+  node: Appointment!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AppointmentOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  start_time_ASC
+  start_time_DESC
+  end_time_ASC
+  end_time_DESC
+}
+
+type AppointmentPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  start_time: DateTime!
+  end_time: DateTime!
+}
+
+input AppointmentScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AppointmentScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AppointmentScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AppointmentScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  start_time: DateTime
+
+  """All values that are not equal to given value."""
+  start_time_not: DateTime
+
+  """All values that are contained in given list."""
+  start_time_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  start_time_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  start_time_lt: DateTime
+
+  """All values less than or equal the given value."""
+  start_time_lte: DateTime
+
+  """All values greater than the given value."""
+  start_time_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  start_time_gte: DateTime
+  end_time: DateTime
+
+  """All values that are not equal to given value."""
+  end_time_not: DateTime
+
+  """All values that are contained in given list."""
+  end_time_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  end_time_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  end_time_lt: DateTime
+
+  """All values less than or equal the given value."""
+  end_time_lte: DateTime
+
+  """All values greater than the given value."""
+  end_time_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  end_time_gte: DateTime
+}
+
+type AppointmentSubscriptionPayload {
+  mutation: MutationType!
+  node: Appointment
+  updatedFields: [String!]
+  previousValues: AppointmentPreviousValues
+}
+
+input AppointmentSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AppointmentSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AppointmentSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AppointmentSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AppointmentWhereInput
+}
+
+input AppointmentUpdateInput {
+  start_time: DateTime
+  end_time: DateTime
+  chamber: ChamberUpdateOneWithoutAppointmentsInput
+  hospital: HospitalUpdateOneWithoutAppointmentsInput
+}
+
+input AppointmentUpdateManyDataInput {
+  start_time: DateTime
+  end_time: DateTime
+}
+
+input AppointmentUpdateManyMutationInput {
+  start_time: DateTime
+  end_time: DateTime
+}
+
+input AppointmentUpdateManyWithoutChamberInput {
+  create: [AppointmentCreateWithoutChamberInput!]
+  connect: [AppointmentWhereUniqueInput!]
+  set: [AppointmentWhereUniqueInput!]
+  disconnect: [AppointmentWhereUniqueInput!]
+  delete: [AppointmentWhereUniqueInput!]
+  update: [AppointmentUpdateWithWhereUniqueWithoutChamberInput!]
+  updateMany: [AppointmentUpdateManyWithWhereNestedInput!]
+  deleteMany: [AppointmentScalarWhereInput!]
+  upsert: [AppointmentUpsertWithWhereUniqueWithoutChamberInput!]
+}
+
+input AppointmentUpdateManyWithoutHospitalInput {
+  create: [AppointmentCreateWithoutHospitalInput!]
+  connect: [AppointmentWhereUniqueInput!]
+  set: [AppointmentWhereUniqueInput!]
+  disconnect: [AppointmentWhereUniqueInput!]
+  delete: [AppointmentWhereUniqueInput!]
+  update: [AppointmentUpdateWithWhereUniqueWithoutHospitalInput!]
+  updateMany: [AppointmentUpdateManyWithWhereNestedInput!]
+  deleteMany: [AppointmentScalarWhereInput!]
+  upsert: [AppointmentUpsertWithWhereUniqueWithoutHospitalInput!]
+}
+
+input AppointmentUpdateManyWithWhereNestedInput {
+  where: AppointmentScalarWhereInput!
+  data: AppointmentUpdateManyDataInput!
+}
+
+input AppointmentUpdateWithoutChamberDataInput {
+  start_time: DateTime
+  end_time: DateTime
+  hospital: HospitalUpdateOneWithoutAppointmentsInput
+}
+
+input AppointmentUpdateWithoutHospitalDataInput {
+  start_time: DateTime
+  end_time: DateTime
+  chamber: ChamberUpdateOneWithoutAppointmentsInput
+}
+
+input AppointmentUpdateWithWhereUniqueWithoutChamberInput {
+  where: AppointmentWhereUniqueInput!
+  data: AppointmentUpdateWithoutChamberDataInput!
+}
+
+input AppointmentUpdateWithWhereUniqueWithoutHospitalInput {
+  where: AppointmentWhereUniqueInput!
+  data: AppointmentUpdateWithoutHospitalDataInput!
+}
+
+input AppointmentUpsertWithWhereUniqueWithoutChamberInput {
+  where: AppointmentWhereUniqueInput!
+  update: AppointmentUpdateWithoutChamberDataInput!
+  create: AppointmentCreateWithoutChamberInput!
+}
+
+input AppointmentUpsertWithWhereUniqueWithoutHospitalInput {
+  where: AppointmentWhereUniqueInput!
+  update: AppointmentUpdateWithoutHospitalDataInput!
+  create: AppointmentCreateWithoutHospitalInput!
+}
+
+input AppointmentWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AppointmentWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AppointmentWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AppointmentWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  start_time: DateTime
+
+  """All values that are not equal to given value."""
+  start_time_not: DateTime
+
+  """All values that are contained in given list."""
+  start_time_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  start_time_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  start_time_lt: DateTime
+
+  """All values less than or equal the given value."""
+  start_time_lte: DateTime
+
+  """All values greater than the given value."""
+  start_time_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  start_time_gte: DateTime
+  end_time: DateTime
+
+  """All values that are not equal to given value."""
+  end_time_not: DateTime
+
+  """All values that are contained in given list."""
+  end_time_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  end_time_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  end_time_lt: DateTime
+
+  """All values less than or equal the given value."""
+  end_time_lte: DateTime
+
+  """All values greater than the given value."""
+  end_time_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  end_time_gte: DateTime
+  chamber: ChamberWhereInput
+  hospital: HospitalWhereInput
+}
+
+input AppointmentWhereUniqueInput {
+  id: ID
+}
+
+type Attending implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  doctor: Doctor
+  chamber(where: ChamberWhereInput, orderBy: ChamberOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chamber!]
+}
+
+"""A connection to a list of items."""
+type AttendingConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AttendingEdge]!
+  aggregate: AggregateAttending!
+}
+
+input AttendingCreateInput {
+  id: ID
+  doctor: DoctorCreateOneWithoutAttendingInput
+  chamber: ChamberCreateManyWithoutAttendingInput
+}
+
+input AttendingCreateManyWithoutChamberInput {
+  create: [AttendingCreateWithoutChamberInput!]
+  connect: [AttendingWhereUniqueInput!]
+}
+
+input AttendingCreateManyWithoutDoctorInput {
+  create: [AttendingCreateWithoutDoctorInput!]
+  connect: [AttendingWhereUniqueInput!]
+}
+
+input AttendingCreateWithoutChamberInput {
+  id: ID
+  doctor: DoctorCreateOneWithoutAttendingInput
+}
+
+input AttendingCreateWithoutDoctorInput {
+  id: ID
+  chamber: ChamberCreateManyWithoutAttendingInput
+}
+
+"""An edge in a connection."""
+type AttendingEdge {
+  """The item at the end of the edge."""
+  node: Attending!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AttendingOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type AttendingPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input AttendingScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AttendingScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AttendingScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AttendingScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+}
+
+type AttendingSubscriptionPayload {
+  mutation: MutationType!
+  node: Attending
+  updatedFields: [String!]
+  previousValues: AttendingPreviousValues
+}
+
+input AttendingSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AttendingSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AttendingSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AttendingSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AttendingWhereInput
+}
+
+input AttendingUpdateInput {
+  doctor: DoctorUpdateOneWithoutAttendingInput
+  chamber: ChamberUpdateManyWithoutAttendingInput
+}
+
+input AttendingUpdateManyWithoutChamberInput {
+  create: [AttendingCreateWithoutChamberInput!]
+  connect: [AttendingWhereUniqueInput!]
+  set: [AttendingWhereUniqueInput!]
+  disconnect: [AttendingWhereUniqueInput!]
+  delete: [AttendingWhereUniqueInput!]
+  update: [AttendingUpdateWithWhereUniqueWithoutChamberInput!]
+  deleteMany: [AttendingScalarWhereInput!]
+  upsert: [AttendingUpsertWithWhereUniqueWithoutChamberInput!]
+}
+
+input AttendingUpdateManyWithoutDoctorInput {
+  create: [AttendingCreateWithoutDoctorInput!]
+  connect: [AttendingWhereUniqueInput!]
+  set: [AttendingWhereUniqueInput!]
+  disconnect: [AttendingWhereUniqueInput!]
+  delete: [AttendingWhereUniqueInput!]
+  update: [AttendingUpdateWithWhereUniqueWithoutDoctorInput!]
+  deleteMany: [AttendingScalarWhereInput!]
+  upsert: [AttendingUpsertWithWhereUniqueWithoutDoctorInput!]
+}
+
+input AttendingUpdateWithoutChamberDataInput {
+  doctor: DoctorUpdateOneWithoutAttendingInput
+}
+
+input AttendingUpdateWithoutDoctorDataInput {
+  chamber: ChamberUpdateManyWithoutAttendingInput
+}
+
+input AttendingUpdateWithWhereUniqueWithoutChamberInput {
+  where: AttendingWhereUniqueInput!
+  data: AttendingUpdateWithoutChamberDataInput!
+}
+
+input AttendingUpdateWithWhereUniqueWithoutDoctorInput {
+  where: AttendingWhereUniqueInput!
+  data: AttendingUpdateWithoutDoctorDataInput!
+}
+
+input AttendingUpsertWithWhereUniqueWithoutChamberInput {
+  where: AttendingWhereUniqueInput!
+  update: AttendingUpdateWithoutChamberDataInput!
+  create: AttendingCreateWithoutChamberInput!
+}
+
+input AttendingUpsertWithWhereUniqueWithoutDoctorInput {
+  where: AttendingWhereUniqueInput!
+  update: AttendingUpdateWithoutDoctorDataInput!
+  create: AttendingCreateWithoutDoctorInput!
+}
+
+input AttendingWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AttendingWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AttendingWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AttendingWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  doctor: DoctorWhereInput
+  chamber_every: ChamberWhereInput
+  chamber_some: ChamberWhereInput
+  chamber_none: ChamberWhereInput
+}
+
+input AttendingWhereUniqueInput {
+  id: ID
 }
 
 type BatchPayload {
@@ -10,8 +885,2700 @@ type BatchPayload {
   count: Long!
 }
 
+type Chamber implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending(where: AttendingWhereInput, orderBy: AttendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Attending!]
+  appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment!]
+  doctor(where: DoctorWhereInput, orderBy: DoctorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Doctor!]
+  location: Location
+}
+
+"""A connection to a list of items."""
+type ChamberConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ChamberEdge]!
+  aggregate: AggregateChamber!
+}
+
+input ChamberCreateInput {
+  id: ID
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending: AttendingCreateManyWithoutChamberInput
+  appointments: AppointmentCreateManyWithoutChamberInput
+  doctor: DoctorCreateManyWithoutChamberInput
+  location: LocationCreateOneWithoutChamberInput
+}
+
+input ChamberCreateManyWithoutAttendingInput {
+  create: [ChamberCreateWithoutAttendingInput!]
+  connect: [ChamberWhereUniqueInput!]
+}
+
+input ChamberCreateManyWithoutDoctorInput {
+  create: [ChamberCreateWithoutDoctorInput!]
+  connect: [ChamberWhereUniqueInput!]
+}
+
+input ChamberCreateOneWithoutAppointmentsInput {
+  create: ChamberCreateWithoutAppointmentsInput
+  connect: ChamberWhereUniqueInput
+}
+
+input ChamberCreateOneWithoutLocationInput {
+  create: ChamberCreateWithoutLocationInput
+  connect: ChamberWhereUniqueInput
+}
+
+input ChamberCreateWithoutAppointmentsInput {
+  id: ID
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending: AttendingCreateManyWithoutChamberInput
+  doctor: DoctorCreateManyWithoutChamberInput
+  location: LocationCreateOneWithoutChamberInput
+}
+
+input ChamberCreateWithoutAttendingInput {
+  id: ID
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  appointments: AppointmentCreateManyWithoutChamberInput
+  doctor: DoctorCreateManyWithoutChamberInput
+  location: LocationCreateOneWithoutChamberInput
+}
+
+input ChamberCreateWithoutDoctorInput {
+  id: ID
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending: AttendingCreateManyWithoutChamberInput
+  appointments: AppointmentCreateManyWithoutChamberInput
+  location: LocationCreateOneWithoutChamberInput
+}
+
+input ChamberCreateWithoutLocationInput {
+  id: ID
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+  attending: AttendingCreateManyWithoutChamberInput
+  appointments: AppointmentCreateManyWithoutChamberInput
+  doctor: DoctorCreateManyWithoutChamberInput
+}
+
+"""An edge in a connection."""
+type ChamberEdge {
+  """The item at the end of the edge."""
+  node: Chamber!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ChamberOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+  start_time_ASC
+  start_time_DESC
+  end_time_ASC
+  end_time_DESC
+}
+
+type ChamberPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  start_time: DateTime!
+  end_time: DateTime!
+}
+
+input ChamberScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChamberScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChamberScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChamberScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  start_time: DateTime
+
+  """All values that are not equal to given value."""
+  start_time_not: DateTime
+
+  """All values that are contained in given list."""
+  start_time_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  start_time_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  start_time_lt: DateTime
+
+  """All values less than or equal the given value."""
+  start_time_lte: DateTime
+
+  """All values greater than the given value."""
+  start_time_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  start_time_gte: DateTime
+  end_time: DateTime
+
+  """All values that are not equal to given value."""
+  end_time_not: DateTime
+
+  """All values that are contained in given list."""
+  end_time_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  end_time_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  end_time_lt: DateTime
+
+  """All values less than or equal the given value."""
+  end_time_lte: DateTime
+
+  """All values greater than the given value."""
+  end_time_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  end_time_gte: DateTime
+}
+
+type ChamberSubscriptionPayload {
+  mutation: MutationType!
+  node: Chamber
+  updatedFields: [String!]
+  previousValues: ChamberPreviousValues
+}
+
+input ChamberSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChamberSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChamberSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChamberSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ChamberWhereInput
+}
+
+input ChamberUpdateInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+  attending: AttendingUpdateManyWithoutChamberInput
+  appointments: AppointmentUpdateManyWithoutChamberInput
+  doctor: DoctorUpdateManyWithoutChamberInput
+  location: LocationUpdateOneWithoutChamberInput
+}
+
+input ChamberUpdateManyDataInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+}
+
+input ChamberUpdateManyMutationInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+}
+
+input ChamberUpdateManyWithoutAttendingInput {
+  create: [ChamberCreateWithoutAttendingInput!]
+  connect: [ChamberWhereUniqueInput!]
+  set: [ChamberWhereUniqueInput!]
+  disconnect: [ChamberWhereUniqueInput!]
+  delete: [ChamberWhereUniqueInput!]
+  update: [ChamberUpdateWithWhereUniqueWithoutAttendingInput!]
+  updateMany: [ChamberUpdateManyWithWhereNestedInput!]
+  deleteMany: [ChamberScalarWhereInput!]
+  upsert: [ChamberUpsertWithWhereUniqueWithoutAttendingInput!]
+}
+
+input ChamberUpdateManyWithoutDoctorInput {
+  create: [ChamberCreateWithoutDoctorInput!]
+  connect: [ChamberWhereUniqueInput!]
+  set: [ChamberWhereUniqueInput!]
+  disconnect: [ChamberWhereUniqueInput!]
+  delete: [ChamberWhereUniqueInput!]
+  update: [ChamberUpdateWithWhereUniqueWithoutDoctorInput!]
+  updateMany: [ChamberUpdateManyWithWhereNestedInput!]
+  deleteMany: [ChamberScalarWhereInput!]
+  upsert: [ChamberUpsertWithWhereUniqueWithoutDoctorInput!]
+}
+
+input ChamberUpdateManyWithWhereNestedInput {
+  where: ChamberScalarWhereInput!
+  data: ChamberUpdateManyDataInput!
+}
+
+input ChamberUpdateOneWithoutAppointmentsInput {
+  create: ChamberCreateWithoutAppointmentsInput
+  connect: ChamberWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ChamberUpdateWithoutAppointmentsDataInput
+  upsert: ChamberUpsertWithoutAppointmentsInput
+}
+
+input ChamberUpdateOneWithoutLocationInput {
+  create: ChamberCreateWithoutLocationInput
+  connect: ChamberWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ChamberUpdateWithoutLocationDataInput
+  upsert: ChamberUpsertWithoutLocationInput
+}
+
+input ChamberUpdateWithoutAppointmentsDataInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+  attending: AttendingUpdateManyWithoutChamberInput
+  doctor: DoctorUpdateManyWithoutChamberInput
+  location: LocationUpdateOneWithoutChamberInput
+}
+
+input ChamberUpdateWithoutAttendingDataInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+  appointments: AppointmentUpdateManyWithoutChamberInput
+  doctor: DoctorUpdateManyWithoutChamberInput
+  location: LocationUpdateOneWithoutChamberInput
+}
+
+input ChamberUpdateWithoutDoctorDataInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+  attending: AttendingUpdateManyWithoutChamberInput
+  appointments: AppointmentUpdateManyWithoutChamberInput
+  location: LocationUpdateOneWithoutChamberInput
+}
+
+input ChamberUpdateWithoutLocationDataInput {
+  name: String
+  start_time: DateTime
+  end_time: DateTime
+  attending: AttendingUpdateManyWithoutChamberInput
+  appointments: AppointmentUpdateManyWithoutChamberInput
+  doctor: DoctorUpdateManyWithoutChamberInput
+}
+
+input ChamberUpdateWithWhereUniqueWithoutAttendingInput {
+  where: ChamberWhereUniqueInput!
+  data: ChamberUpdateWithoutAttendingDataInput!
+}
+
+input ChamberUpdateWithWhereUniqueWithoutDoctorInput {
+  where: ChamberWhereUniqueInput!
+  data: ChamberUpdateWithoutDoctorDataInput!
+}
+
+input ChamberUpsertWithoutAppointmentsInput {
+  update: ChamberUpdateWithoutAppointmentsDataInput!
+  create: ChamberCreateWithoutAppointmentsInput!
+}
+
+input ChamberUpsertWithoutLocationInput {
+  update: ChamberUpdateWithoutLocationDataInput!
+  create: ChamberCreateWithoutLocationInput!
+}
+
+input ChamberUpsertWithWhereUniqueWithoutAttendingInput {
+  where: ChamberWhereUniqueInput!
+  update: ChamberUpdateWithoutAttendingDataInput!
+  create: ChamberCreateWithoutAttendingInput!
+}
+
+input ChamberUpsertWithWhereUniqueWithoutDoctorInput {
+  where: ChamberWhereUniqueInput!
+  update: ChamberUpdateWithoutDoctorDataInput!
+  create: ChamberCreateWithoutDoctorInput!
+}
+
+input ChamberWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ChamberWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ChamberWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ChamberWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  start_time: DateTime
+
+  """All values that are not equal to given value."""
+  start_time_not: DateTime
+
+  """All values that are contained in given list."""
+  start_time_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  start_time_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  start_time_lt: DateTime
+
+  """All values less than or equal the given value."""
+  start_time_lte: DateTime
+
+  """All values greater than the given value."""
+  start_time_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  start_time_gte: DateTime
+  end_time: DateTime
+
+  """All values that are not equal to given value."""
+  end_time_not: DateTime
+
+  """All values that are contained in given list."""
+  end_time_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  end_time_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  end_time_lt: DateTime
+
+  """All values less than or equal the given value."""
+  end_time_lte: DateTime
+
+  """All values greater than the given value."""
+  end_time_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  end_time_gte: DateTime
+  attending_every: AttendingWhereInput
+  attending_some: AttendingWhereInput
+  attending_none: AttendingWhereInput
+  appointments_every: AppointmentWhereInput
+  appointments_some: AppointmentWhereInput
+  appointments_none: AppointmentWhereInput
+  doctor_every: DoctorWhereInput
+  doctor_some: DoctorWhereInput
+  doctor_none: DoctorWhereInput
+  location: LocationWhereInput
+}
+
+input ChamberWhereUniqueInput {
+  id: ID
+}
+
+scalar DateTime
+
+type Doctor implements Node {
+  id: ID!
+  name: String!
+  specialization: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: User!
+  attending(where: AttendingWhereInput, orderBy: AttendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Attending!]
+  chamber(where: ChamberWhereInput, orderBy: ChamberOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chamber!]
+  verifac: VerificationCode
+  profile: Profile
+}
+
+"""A connection to a list of items."""
+type DoctorConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [DoctorEdge]!
+  aggregate: AggregateDoctor!
+}
+
+input DoctorCreateInput {
+  id: ID
+  name: String!
+  specialization: String!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserCreateOneWithoutDoctorInput!
+  attending: AttendingCreateManyWithoutDoctorInput
+  chamber: ChamberCreateManyWithoutDoctorInput
+  verifac: VerificationCodeCreateOneWithoutDoctorInput
+  profile: ProfileCreateOneWithoutDoctorInput
+}
+
+input DoctorCreateManyWithoutChamberInput {
+  create: [DoctorCreateWithoutChamberInput!]
+  connect: [DoctorWhereUniqueInput!]
+}
+
+input DoctorCreateOneWithoutAttendingInput {
+  create: DoctorCreateWithoutAttendingInput
+  connect: DoctorWhereUniqueInput
+}
+
+input DoctorCreateOneWithoutProfileInput {
+  create: DoctorCreateWithoutProfileInput
+  connect: DoctorWhereUniqueInput
+}
+
+input DoctorCreateOneWithoutUserInput {
+  create: DoctorCreateWithoutUserInput
+  connect: DoctorWhereUniqueInput
+}
+
+input DoctorCreateOneWithoutVerifacInput {
+  create: DoctorCreateWithoutVerifacInput
+  connect: DoctorWhereUniqueInput
+}
+
+input DoctorCreateWithoutAttendingInput {
+  id: ID
+  name: String!
+  specialization: String!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserCreateOneWithoutDoctorInput!
+  chamber: ChamberCreateManyWithoutDoctorInput
+  verifac: VerificationCodeCreateOneWithoutDoctorInput
+  profile: ProfileCreateOneWithoutDoctorInput
+}
+
+input DoctorCreateWithoutChamberInput {
+  id: ID
+  name: String!
+  specialization: String!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserCreateOneWithoutDoctorInput!
+  attending: AttendingCreateManyWithoutDoctorInput
+  verifac: VerificationCodeCreateOneWithoutDoctorInput
+  profile: ProfileCreateOneWithoutDoctorInput
+}
+
+input DoctorCreateWithoutProfileInput {
+  id: ID
+  name: String!
+  specialization: String!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserCreateOneWithoutDoctorInput!
+  attending: AttendingCreateManyWithoutDoctorInput
+  chamber: ChamberCreateManyWithoutDoctorInput
+  verifac: VerificationCodeCreateOneWithoutDoctorInput
+}
+
+input DoctorCreateWithoutUserInput {
+  id: ID
+  name: String!
+  specialization: String!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  attending: AttendingCreateManyWithoutDoctorInput
+  chamber: ChamberCreateManyWithoutDoctorInput
+  verifac: VerificationCodeCreateOneWithoutDoctorInput
+  profile: ProfileCreateOneWithoutDoctorInput
+}
+
+input DoctorCreateWithoutVerifacInput {
+  id: ID
+  name: String!
+  specialization: String!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserCreateOneWithoutDoctorInput!
+  attending: AttendingCreateManyWithoutDoctorInput
+  chamber: ChamberCreateManyWithoutDoctorInput
+  profile: ProfileCreateOneWithoutDoctorInput
+}
+
+"""An edge in a connection."""
+type DoctorEdge {
+  """The item at the end of the edge."""
+  node: Doctor!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum DoctorOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  specialization_ASC
+  specialization_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  emailVerification_ASC
+  emailVerification_DESC
+  phone_ASC
+  phone_DESC
+  address_ASC
+  address_DESC
+  state_ASC
+  state_DESC
+  zip_ASC
+  zip_DESC
+}
+
+type DoctorPreviousValues {
+  id: ID!
+  name: String!
+  specialization: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+}
+
+input DoctorScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DoctorScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DoctorScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DoctorScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  specialization: String
+
+  """All values that are not equal to given value."""
+  specialization_not: String
+
+  """All values that are contained in given list."""
+  specialization_in: [String!]
+
+  """All values that are not contained in given list."""
+  specialization_not_in: [String!]
+
+  """All values less than the given value."""
+  specialization_lt: String
+
+  """All values less than or equal the given value."""
+  specialization_lte: String
+
+  """All values greater than the given value."""
+  specialization_gt: String
+
+  """All values greater than or equal the given value."""
+  specialization_gte: String
+
+  """All values containing the given string."""
+  specialization_contains: String
+
+  """All values not containing the given string."""
+  specialization_not_contains: String
+
+  """All values starting with the given string."""
+  specialization_starts_with: String
+
+  """All values not starting with the given string."""
+  specialization_not_starts_with: String
+
+  """All values ending with the given string."""
+  specialization_ends_with: String
+
+  """All values not ending with the given string."""
+  specialization_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  emailVerification: Boolean
+
+  """All values that are not equal to given value."""
+  emailVerification_not: Boolean
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  address: String
+
+  """All values that are not equal to given value."""
+  address_not: String
+
+  """All values that are contained in given list."""
+  address_in: [String!]
+
+  """All values that are not contained in given list."""
+  address_not_in: [String!]
+
+  """All values less than the given value."""
+  address_lt: String
+
+  """All values less than or equal the given value."""
+  address_lte: String
+
+  """All values greater than the given value."""
+  address_gt: String
+
+  """All values greater than or equal the given value."""
+  address_gte: String
+
+  """All values containing the given string."""
+  address_contains: String
+
+  """All values not containing the given string."""
+  address_not_contains: String
+
+  """All values starting with the given string."""
+  address_starts_with: String
+
+  """All values not starting with the given string."""
+  address_not_starts_with: String
+
+  """All values ending with the given string."""
+  address_ends_with: String
+
+  """All values not ending with the given string."""
+  address_not_ends_with: String
+  state: String
+
+  """All values that are not equal to given value."""
+  state_not: String
+
+  """All values that are contained in given list."""
+  state_in: [String!]
+
+  """All values that are not contained in given list."""
+  state_not_in: [String!]
+
+  """All values less than the given value."""
+  state_lt: String
+
+  """All values less than or equal the given value."""
+  state_lte: String
+
+  """All values greater than the given value."""
+  state_gt: String
+
+  """All values greater than or equal the given value."""
+  state_gte: String
+
+  """All values containing the given string."""
+  state_contains: String
+
+  """All values not containing the given string."""
+  state_not_contains: String
+
+  """All values starting with the given string."""
+  state_starts_with: String
+
+  """All values not starting with the given string."""
+  state_not_starts_with: String
+
+  """All values ending with the given string."""
+  state_ends_with: String
+
+  """All values not ending with the given string."""
+  state_not_ends_with: String
+  zip: String
+
+  """All values that are not equal to given value."""
+  zip_not: String
+
+  """All values that are contained in given list."""
+  zip_in: [String!]
+
+  """All values that are not contained in given list."""
+  zip_not_in: [String!]
+
+  """All values less than the given value."""
+  zip_lt: String
+
+  """All values less than or equal the given value."""
+  zip_lte: String
+
+  """All values greater than the given value."""
+  zip_gt: String
+
+  """All values greater than or equal the given value."""
+  zip_gte: String
+
+  """All values containing the given string."""
+  zip_contains: String
+
+  """All values not containing the given string."""
+  zip_not_contains: String
+
+  """All values starting with the given string."""
+  zip_starts_with: String
+
+  """All values not starting with the given string."""
+  zip_not_starts_with: String
+
+  """All values ending with the given string."""
+  zip_ends_with: String
+
+  """All values not ending with the given string."""
+  zip_not_ends_with: String
+}
+
+type DoctorSubscriptionPayload {
+  mutation: MutationType!
+  node: Doctor
+  updatedFields: [String!]
+  previousValues: DoctorPreviousValues
+}
+
+input DoctorSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DoctorSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DoctorSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DoctorSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: DoctorWhereInput
+}
+
+input DoctorUpdateInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserUpdateOneRequiredWithoutDoctorInput
+  attending: AttendingUpdateManyWithoutDoctorInput
+  chamber: ChamberUpdateManyWithoutDoctorInput
+  verifac: VerificationCodeUpdateOneWithoutDoctorInput
+  profile: ProfileUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateManyDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+}
+
+input DoctorUpdateManyMutationInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+}
+
+input DoctorUpdateManyWithoutChamberInput {
+  create: [DoctorCreateWithoutChamberInput!]
+  connect: [DoctorWhereUniqueInput!]
+  set: [DoctorWhereUniqueInput!]
+  disconnect: [DoctorWhereUniqueInput!]
+  delete: [DoctorWhereUniqueInput!]
+  update: [DoctorUpdateWithWhereUniqueWithoutChamberInput!]
+  updateMany: [DoctorUpdateManyWithWhereNestedInput!]
+  deleteMany: [DoctorScalarWhereInput!]
+  upsert: [DoctorUpsertWithWhereUniqueWithoutChamberInput!]
+}
+
+input DoctorUpdateManyWithWhereNestedInput {
+  where: DoctorScalarWhereInput!
+  data: DoctorUpdateManyDataInput!
+}
+
+input DoctorUpdateOneRequiredWithoutUserInput {
+  create: DoctorCreateWithoutUserInput
+  connect: DoctorWhereUniqueInput
+  update: DoctorUpdateWithoutUserDataInput
+  upsert: DoctorUpsertWithoutUserInput
+}
+
+input DoctorUpdateOneWithoutAttendingInput {
+  create: DoctorCreateWithoutAttendingInput
+  connect: DoctorWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: DoctorUpdateWithoutAttendingDataInput
+  upsert: DoctorUpsertWithoutAttendingInput
+}
+
+input DoctorUpdateOneWithoutProfileInput {
+  create: DoctorCreateWithoutProfileInput
+  connect: DoctorWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: DoctorUpdateWithoutProfileDataInput
+  upsert: DoctorUpsertWithoutProfileInput
+}
+
+input DoctorUpdateOneWithoutVerifacInput {
+  create: DoctorCreateWithoutVerifacInput
+  connect: DoctorWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: DoctorUpdateWithoutVerifacDataInput
+  upsert: DoctorUpsertWithoutVerifacInput
+}
+
+input DoctorUpdateWithoutAttendingDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserUpdateOneRequiredWithoutDoctorInput
+  chamber: ChamberUpdateManyWithoutDoctorInput
+  verifac: VerificationCodeUpdateOneWithoutDoctorInput
+  profile: ProfileUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateWithoutChamberDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserUpdateOneRequiredWithoutDoctorInput
+  attending: AttendingUpdateManyWithoutDoctorInput
+  verifac: VerificationCodeUpdateOneWithoutDoctorInput
+  profile: ProfileUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateWithoutProfileDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserUpdateOneRequiredWithoutDoctorInput
+  attending: AttendingUpdateManyWithoutDoctorInput
+  chamber: ChamberUpdateManyWithoutDoctorInput
+  verifac: VerificationCodeUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateWithoutUserDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  attending: AttendingUpdateManyWithoutDoctorInput
+  chamber: ChamberUpdateManyWithoutDoctorInput
+  verifac: VerificationCodeUpdateOneWithoutDoctorInput
+  profile: ProfileUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateWithoutVerifacDataInput {
+  name: String
+  specialization: String
+  emailVerification: Boolean
+  phone: String
+  address: String
+  state: String
+  zip: String
+  user: UserUpdateOneRequiredWithoutDoctorInput
+  attending: AttendingUpdateManyWithoutDoctorInput
+  chamber: ChamberUpdateManyWithoutDoctorInput
+  profile: ProfileUpdateOneWithoutDoctorInput
+}
+
+input DoctorUpdateWithWhereUniqueWithoutChamberInput {
+  where: DoctorWhereUniqueInput!
+  data: DoctorUpdateWithoutChamberDataInput!
+}
+
+input DoctorUpsertWithoutAttendingInput {
+  update: DoctorUpdateWithoutAttendingDataInput!
+  create: DoctorCreateWithoutAttendingInput!
+}
+
+input DoctorUpsertWithoutProfileInput {
+  update: DoctorUpdateWithoutProfileDataInput!
+  create: DoctorCreateWithoutProfileInput!
+}
+
+input DoctorUpsertWithoutUserInput {
+  update: DoctorUpdateWithoutUserDataInput!
+  create: DoctorCreateWithoutUserInput!
+}
+
+input DoctorUpsertWithoutVerifacInput {
+  update: DoctorUpdateWithoutVerifacDataInput!
+  create: DoctorCreateWithoutVerifacInput!
+}
+
+input DoctorUpsertWithWhereUniqueWithoutChamberInput {
+  where: DoctorWhereUniqueInput!
+  update: DoctorUpdateWithoutChamberDataInput!
+  create: DoctorCreateWithoutChamberInput!
+}
+
+input DoctorWhereInput {
+  """Logical AND on all given filters."""
+  AND: [DoctorWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [DoctorWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [DoctorWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  specialization: String
+
+  """All values that are not equal to given value."""
+  specialization_not: String
+
+  """All values that are contained in given list."""
+  specialization_in: [String!]
+
+  """All values that are not contained in given list."""
+  specialization_not_in: [String!]
+
+  """All values less than the given value."""
+  specialization_lt: String
+
+  """All values less than or equal the given value."""
+  specialization_lte: String
+
+  """All values greater than the given value."""
+  specialization_gt: String
+
+  """All values greater than or equal the given value."""
+  specialization_gte: String
+
+  """All values containing the given string."""
+  specialization_contains: String
+
+  """All values not containing the given string."""
+  specialization_not_contains: String
+
+  """All values starting with the given string."""
+  specialization_starts_with: String
+
+  """All values not starting with the given string."""
+  specialization_not_starts_with: String
+
+  """All values ending with the given string."""
+  specialization_ends_with: String
+
+  """All values not ending with the given string."""
+  specialization_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  emailVerification: Boolean
+
+  """All values that are not equal to given value."""
+  emailVerification_not: Boolean
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  address: String
+
+  """All values that are not equal to given value."""
+  address_not: String
+
+  """All values that are contained in given list."""
+  address_in: [String!]
+
+  """All values that are not contained in given list."""
+  address_not_in: [String!]
+
+  """All values less than the given value."""
+  address_lt: String
+
+  """All values less than or equal the given value."""
+  address_lte: String
+
+  """All values greater than the given value."""
+  address_gt: String
+
+  """All values greater than or equal the given value."""
+  address_gte: String
+
+  """All values containing the given string."""
+  address_contains: String
+
+  """All values not containing the given string."""
+  address_not_contains: String
+
+  """All values starting with the given string."""
+  address_starts_with: String
+
+  """All values not starting with the given string."""
+  address_not_starts_with: String
+
+  """All values ending with the given string."""
+  address_ends_with: String
+
+  """All values not ending with the given string."""
+  address_not_ends_with: String
+  state: String
+
+  """All values that are not equal to given value."""
+  state_not: String
+
+  """All values that are contained in given list."""
+  state_in: [String!]
+
+  """All values that are not contained in given list."""
+  state_not_in: [String!]
+
+  """All values less than the given value."""
+  state_lt: String
+
+  """All values less than or equal the given value."""
+  state_lte: String
+
+  """All values greater than the given value."""
+  state_gt: String
+
+  """All values greater than or equal the given value."""
+  state_gte: String
+
+  """All values containing the given string."""
+  state_contains: String
+
+  """All values not containing the given string."""
+  state_not_contains: String
+
+  """All values starting with the given string."""
+  state_starts_with: String
+
+  """All values not starting with the given string."""
+  state_not_starts_with: String
+
+  """All values ending with the given string."""
+  state_ends_with: String
+
+  """All values not ending with the given string."""
+  state_not_ends_with: String
+  zip: String
+
+  """All values that are not equal to given value."""
+  zip_not: String
+
+  """All values that are contained in given list."""
+  zip_in: [String!]
+
+  """All values that are not contained in given list."""
+  zip_not_in: [String!]
+
+  """All values less than the given value."""
+  zip_lt: String
+
+  """All values less than or equal the given value."""
+  zip_lte: String
+
+  """All values greater than the given value."""
+  zip_gt: String
+
+  """All values greater than or equal the given value."""
+  zip_gte: String
+
+  """All values containing the given string."""
+  zip_contains: String
+
+  """All values not containing the given string."""
+  zip_not_contains: String
+
+  """All values starting with the given string."""
+  zip_starts_with: String
+
+  """All values not starting with the given string."""
+  zip_not_starts_with: String
+
+  """All values ending with the given string."""
+  zip_ends_with: String
+
+  """All values not ending with the given string."""
+  zip_not_ends_with: String
+  user: UserWhereInput
+  attending_every: AttendingWhereInput
+  attending_some: AttendingWhereInput
+  attending_none: AttendingWhereInput
+  chamber_every: ChamberWhereInput
+  chamber_some: ChamberWhereInput
+  chamber_none: ChamberWhereInput
+  verifac: VerificationCodeWhereInput
+  profile: ProfileWhereInput
+}
+
+input DoctorWhereUniqueInput {
+  id: ID
+}
+
+type Hospital implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  emailVerification: Boolean
+  name: String!
+  profile: Profile!
+  controllers(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
+  appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment!]
+  location: Location
+}
+
+"""A connection to a list of items."""
+type HospitalConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [HospitalEdge]!
+  aggregate: AggregateHospital!
+}
+
+input HospitalCreateInput {
+  id: ID
+  emailVerification: Boolean
+  name: String!
+  profile: ProfileCreateOneWithoutHospitalInput!
+  controllers: UserCreateManyWithoutHospitalInput
+  appointments: AppointmentCreateManyWithoutHospitalInput
+  location: LocationCreateOneWithoutHospitalInput
+}
+
+input HospitalCreateOneWithoutAppointmentsInput {
+  create: HospitalCreateWithoutAppointmentsInput
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalCreateOneWithoutControllersInput {
+  create: HospitalCreateWithoutControllersInput
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalCreateOneWithoutLocationInput {
+  create: HospitalCreateWithoutLocationInput
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalCreateOneWithoutProfileInput {
+  create: HospitalCreateWithoutProfileInput
+  connect: HospitalWhereUniqueInput
+}
+
+input HospitalCreateWithoutAppointmentsInput {
+  id: ID
+  emailVerification: Boolean
+  name: String!
+  profile: ProfileCreateOneWithoutHospitalInput!
+  controllers: UserCreateManyWithoutHospitalInput
+  location: LocationCreateOneWithoutHospitalInput
+}
+
+input HospitalCreateWithoutControllersInput {
+  id: ID
+  emailVerification: Boolean
+  name: String!
+  profile: ProfileCreateOneWithoutHospitalInput!
+  appointments: AppointmentCreateManyWithoutHospitalInput
+  location: LocationCreateOneWithoutHospitalInput
+}
+
+input HospitalCreateWithoutLocationInput {
+  id: ID
+  emailVerification: Boolean
+  name: String!
+  profile: ProfileCreateOneWithoutHospitalInput!
+  controllers: UserCreateManyWithoutHospitalInput
+  appointments: AppointmentCreateManyWithoutHospitalInput
+}
+
+input HospitalCreateWithoutProfileInput {
+  id: ID
+  emailVerification: Boolean
+  name: String!
+  controllers: UserCreateManyWithoutHospitalInput
+  appointments: AppointmentCreateManyWithoutHospitalInput
+  location: LocationCreateOneWithoutHospitalInput
+}
+
+"""An edge in a connection."""
+type HospitalEdge {
+  """The item at the end of the edge."""
+  node: Hospital!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum HospitalOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  emailVerification_ASC
+  emailVerification_DESC
+  name_ASC
+  name_DESC
+}
+
+type HospitalPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  emailVerification: Boolean
+  name: String!
+}
+
+type HospitalSubscriptionPayload {
+  mutation: MutationType!
+  node: Hospital
+  updatedFields: [String!]
+  previousValues: HospitalPreviousValues
+}
+
+input HospitalSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HospitalSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HospitalSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HospitalSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: HospitalWhereInput
+}
+
+input HospitalUpdateInput {
+  emailVerification: Boolean
+  name: String
+  profile: ProfileUpdateOneRequiredWithoutHospitalInput
+  controllers: UserUpdateManyWithoutHospitalInput
+  appointments: AppointmentUpdateManyWithoutHospitalInput
+  location: LocationUpdateOneWithoutHospitalInput
+}
+
+input HospitalUpdateManyMutationInput {
+  emailVerification: Boolean
+  name: String
+}
+
+input HospitalUpdateOneWithoutAppointmentsInput {
+  create: HospitalCreateWithoutAppointmentsInput
+  connect: HospitalWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: HospitalUpdateWithoutAppointmentsDataInput
+  upsert: HospitalUpsertWithoutAppointmentsInput
+}
+
+input HospitalUpdateOneWithoutControllersInput {
+  create: HospitalCreateWithoutControllersInput
+  connect: HospitalWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: HospitalUpdateWithoutControllersDataInput
+  upsert: HospitalUpsertWithoutControllersInput
+}
+
+input HospitalUpdateOneWithoutLocationInput {
+  create: HospitalCreateWithoutLocationInput
+  connect: HospitalWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: HospitalUpdateWithoutLocationDataInput
+  upsert: HospitalUpsertWithoutLocationInput
+}
+
+input HospitalUpdateOneWithoutProfileInput {
+  create: HospitalCreateWithoutProfileInput
+  connect: HospitalWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: HospitalUpdateWithoutProfileDataInput
+  upsert: HospitalUpsertWithoutProfileInput
+}
+
+input HospitalUpdateWithoutAppointmentsDataInput {
+  emailVerification: Boolean
+  name: String
+  profile: ProfileUpdateOneRequiredWithoutHospitalInput
+  controllers: UserUpdateManyWithoutHospitalInput
+  location: LocationUpdateOneWithoutHospitalInput
+}
+
+input HospitalUpdateWithoutControllersDataInput {
+  emailVerification: Boolean
+  name: String
+  profile: ProfileUpdateOneRequiredWithoutHospitalInput
+  appointments: AppointmentUpdateManyWithoutHospitalInput
+  location: LocationUpdateOneWithoutHospitalInput
+}
+
+input HospitalUpdateWithoutLocationDataInput {
+  emailVerification: Boolean
+  name: String
+  profile: ProfileUpdateOneRequiredWithoutHospitalInput
+  controllers: UserUpdateManyWithoutHospitalInput
+  appointments: AppointmentUpdateManyWithoutHospitalInput
+}
+
+input HospitalUpdateWithoutProfileDataInput {
+  emailVerification: Boolean
+  name: String
+  controllers: UserUpdateManyWithoutHospitalInput
+  appointments: AppointmentUpdateManyWithoutHospitalInput
+  location: LocationUpdateOneWithoutHospitalInput
+}
+
+input HospitalUpsertWithoutAppointmentsInput {
+  update: HospitalUpdateWithoutAppointmentsDataInput!
+  create: HospitalCreateWithoutAppointmentsInput!
+}
+
+input HospitalUpsertWithoutControllersInput {
+  update: HospitalUpdateWithoutControllersDataInput!
+  create: HospitalCreateWithoutControllersInput!
+}
+
+input HospitalUpsertWithoutLocationInput {
+  update: HospitalUpdateWithoutLocationDataInput!
+  create: HospitalCreateWithoutLocationInput!
+}
+
+input HospitalUpsertWithoutProfileInput {
+  update: HospitalUpdateWithoutProfileDataInput!
+  create: HospitalCreateWithoutProfileInput!
+}
+
+input HospitalWhereInput {
+  """Logical AND on all given filters."""
+  AND: [HospitalWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [HospitalWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [HospitalWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  emailVerification: Boolean
+
+  """All values that are not equal to given value."""
+  emailVerification_not: Boolean
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  profile: ProfileWhereInput
+  controllers_every: UserWhereInput
+  controllers_some: UserWhereInput
+  controllers_none: UserWhereInput
+  appointments_every: AppointmentWhereInput
+  appointments_some: AppointmentWhereInput
+  appointments_none: AppointmentWhereInput
+  location: LocationWhereInput
+}
+
+input HospitalWhereUniqueInput {
+  id: ID
+}
+
 """Raw JSON value"""
 scalar Json
+
+type Location implements Node {
+  id: ID!
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  hospital: Hospital
+  chamber: Chamber
+}
+
+"""A connection to a list of items."""
+type LocationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [LocationEdge]!
+  aggregate: AggregateLocation!
+}
+
+input LocationCreateInput {
+  id: ID
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  hospital: HospitalCreateOneWithoutLocationInput
+  chamber: ChamberCreateOneWithoutLocationInput
+}
+
+input LocationCreateOneWithoutChamberInput {
+  create: LocationCreateWithoutChamberInput
+  connect: LocationWhereUniqueInput
+}
+
+input LocationCreateOneWithoutHospitalInput {
+  create: LocationCreateWithoutHospitalInput
+  connect: LocationWhereUniqueInput
+}
+
+input LocationCreateWithoutChamberInput {
+  id: ID
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  hospital: HospitalCreateOneWithoutLocationInput
+}
+
+input LocationCreateWithoutHospitalInput {
+  id: ID
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  chamber: ChamberCreateOneWithoutLocationInput
+}
+
+"""An edge in a connection."""
+type LocationEdge {
+  """The item at the end of the edge."""
+  node: Location!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum LocationOrderByInput {
+  id_ASC
+  id_DESC
+  address_ASC
+  address_DESC
+  slug_ASC
+  slug_DESC
+  lat_ASC
+  lat_DESC
+  lng_ASC
+  lng_DESC
+  addressID_ASC
+  addressID_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type LocationPreviousValues {
+  id: ID!
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type LocationSubscriptionPayload {
+  mutation: MutationType!
+  node: Location
+  updatedFields: [String!]
+  previousValues: LocationPreviousValues
+}
+
+input LocationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LocationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LocationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LocationSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: LocationWhereInput
+}
+
+input LocationUpdateInput {
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  hospital: HospitalUpdateOneWithoutLocationInput
+  chamber: ChamberUpdateOneWithoutLocationInput
+}
+
+input LocationUpdateManyMutationInput {
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+}
+
+input LocationUpdateOneWithoutChamberInput {
+  create: LocationCreateWithoutChamberInput
+  connect: LocationWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: LocationUpdateWithoutChamberDataInput
+  upsert: LocationUpsertWithoutChamberInput
+}
+
+input LocationUpdateOneWithoutHospitalInput {
+  create: LocationCreateWithoutHospitalInput
+  connect: LocationWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: LocationUpdateWithoutHospitalDataInput
+  upsert: LocationUpsertWithoutHospitalInput
+}
+
+input LocationUpdateWithoutChamberDataInput {
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  hospital: HospitalUpdateOneWithoutLocationInput
+}
+
+input LocationUpdateWithoutHospitalDataInput {
+  address: String
+  slug: String
+  lat: String
+  lng: String
+  addressID: String
+  chamber: ChamberUpdateOneWithoutLocationInput
+}
+
+input LocationUpsertWithoutChamberInput {
+  update: LocationUpdateWithoutChamberDataInput!
+  create: LocationCreateWithoutChamberInput!
+}
+
+input LocationUpsertWithoutHospitalInput {
+  update: LocationUpdateWithoutHospitalDataInput!
+  create: LocationCreateWithoutHospitalInput!
+}
+
+input LocationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [LocationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [LocationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [LocationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  address: String
+
+  """All values that are not equal to given value."""
+  address_not: String
+
+  """All values that are contained in given list."""
+  address_in: [String!]
+
+  """All values that are not contained in given list."""
+  address_not_in: [String!]
+
+  """All values less than the given value."""
+  address_lt: String
+
+  """All values less than or equal the given value."""
+  address_lte: String
+
+  """All values greater than the given value."""
+  address_gt: String
+
+  """All values greater than or equal the given value."""
+  address_gte: String
+
+  """All values containing the given string."""
+  address_contains: String
+
+  """All values not containing the given string."""
+  address_not_contains: String
+
+  """All values starting with the given string."""
+  address_starts_with: String
+
+  """All values not starting with the given string."""
+  address_not_starts_with: String
+
+  """All values ending with the given string."""
+  address_ends_with: String
+
+  """All values not ending with the given string."""
+  address_not_ends_with: String
+  slug: String
+
+  """All values that are not equal to given value."""
+  slug_not: String
+
+  """All values that are contained in given list."""
+  slug_in: [String!]
+
+  """All values that are not contained in given list."""
+  slug_not_in: [String!]
+
+  """All values less than the given value."""
+  slug_lt: String
+
+  """All values less than or equal the given value."""
+  slug_lte: String
+
+  """All values greater than the given value."""
+  slug_gt: String
+
+  """All values greater than or equal the given value."""
+  slug_gte: String
+
+  """All values containing the given string."""
+  slug_contains: String
+
+  """All values not containing the given string."""
+  slug_not_contains: String
+
+  """All values starting with the given string."""
+  slug_starts_with: String
+
+  """All values not starting with the given string."""
+  slug_not_starts_with: String
+
+  """All values ending with the given string."""
+  slug_ends_with: String
+
+  """All values not ending with the given string."""
+  slug_not_ends_with: String
+  lat: String
+
+  """All values that are not equal to given value."""
+  lat_not: String
+
+  """All values that are contained in given list."""
+  lat_in: [String!]
+
+  """All values that are not contained in given list."""
+  lat_not_in: [String!]
+
+  """All values less than the given value."""
+  lat_lt: String
+
+  """All values less than or equal the given value."""
+  lat_lte: String
+
+  """All values greater than the given value."""
+  lat_gt: String
+
+  """All values greater than or equal the given value."""
+  lat_gte: String
+
+  """All values containing the given string."""
+  lat_contains: String
+
+  """All values not containing the given string."""
+  lat_not_contains: String
+
+  """All values starting with the given string."""
+  lat_starts_with: String
+
+  """All values not starting with the given string."""
+  lat_not_starts_with: String
+
+  """All values ending with the given string."""
+  lat_ends_with: String
+
+  """All values not ending with the given string."""
+  lat_not_ends_with: String
+  lng: String
+
+  """All values that are not equal to given value."""
+  lng_not: String
+
+  """All values that are contained in given list."""
+  lng_in: [String!]
+
+  """All values that are not contained in given list."""
+  lng_not_in: [String!]
+
+  """All values less than the given value."""
+  lng_lt: String
+
+  """All values less than or equal the given value."""
+  lng_lte: String
+
+  """All values greater than the given value."""
+  lng_gt: String
+
+  """All values greater than or equal the given value."""
+  lng_gte: String
+
+  """All values containing the given string."""
+  lng_contains: String
+
+  """All values not containing the given string."""
+  lng_not_contains: String
+
+  """All values starting with the given string."""
+  lng_starts_with: String
+
+  """All values not starting with the given string."""
+  lng_not_starts_with: String
+
+  """All values ending with the given string."""
+  lng_ends_with: String
+
+  """All values not ending with the given string."""
+  lng_not_ends_with: String
+  addressID: String
+
+  """All values that are not equal to given value."""
+  addressID_not: String
+
+  """All values that are contained in given list."""
+  addressID_in: [String!]
+
+  """All values that are not contained in given list."""
+  addressID_not_in: [String!]
+
+  """All values less than the given value."""
+  addressID_lt: String
+
+  """All values less than or equal the given value."""
+  addressID_lte: String
+
+  """All values greater than the given value."""
+  addressID_gt: String
+
+  """All values greater than or equal the given value."""
+  addressID_gte: String
+
+  """All values containing the given string."""
+  addressID_contains: String
+
+  """All values not containing the given string."""
+  addressID_not_contains: String
+
+  """All values starting with the given string."""
+  addressID_starts_with: String
+
+  """All values not starting with the given string."""
+  addressID_not_starts_with: String
+
+  """All values ending with the given string."""
+  addressID_ends_with: String
+
+  """All values not ending with the given string."""
+  addressID_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  hospital: HospitalWhereInput
+  chamber: ChamberWhereInput
+}
+
+input LocationWhereUniqueInput {
+  id: ID
+}
 
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
@@ -21,11 +3588,58 @@ scalar Long
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
+  createProfile(data: ProfileCreateInput!): Profile!
+  createLocation(data: LocationCreateInput!): Location!
+  createDoctor(data: DoctorCreateInput!): Doctor!
+  createAppointment(data: AppointmentCreateInput!): Appointment!
+  createHospital(data: HospitalCreateInput!): Hospital!
+  createAttending(data: AttendingCreateInput!): Attending!
+  createChamber(data: ChamberCreateInput!): Chamber!
+  createVerificationCode(data: VerificationCodeCreateInput!): VerificationCode!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateProfile(data: ProfileUpdateInput!, where: ProfileWhereUniqueInput!): Profile
+  updateLocation(data: LocationUpdateInput!, where: LocationWhereUniqueInput!): Location
+  updateDoctor(data: DoctorUpdateInput!, where: DoctorWhereUniqueInput!): Doctor
+  updateAppointment(data: AppointmentUpdateInput!, where: AppointmentWhereUniqueInput!): Appointment
+  updateHospital(data: HospitalUpdateInput!, where: HospitalWhereUniqueInput!): Hospital
+  updateAttending(data: AttendingUpdateInput!, where: AttendingWhereUniqueInput!): Attending
+  updateChamber(data: ChamberUpdateInput!, where: ChamberWhereUniqueInput!): Chamber
+  updateVerificationCode(data: VerificationCodeUpdateInput!, where: VerificationCodeWhereUniqueInput!): VerificationCode
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteProfile(where: ProfileWhereUniqueInput!): Profile
+  deleteLocation(where: LocationWhereUniqueInput!): Location
+  deleteDoctor(where: DoctorWhereUniqueInput!): Doctor
+  deleteAppointment(where: AppointmentWhereUniqueInput!): Appointment
+  deleteHospital(where: HospitalWhereUniqueInput!): Hospital
+  deleteAttending(where: AttendingWhereUniqueInput!): Attending
+  deleteChamber(where: ChamberWhereUniqueInput!): Chamber
+  deleteVerificationCode(where: VerificationCodeWhereUniqueInput!): VerificationCode
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertProfile(where: ProfileWhereUniqueInput!, create: ProfileCreateInput!, update: ProfileUpdateInput!): Profile!
+  upsertLocation(where: LocationWhereUniqueInput!, create: LocationCreateInput!, update: LocationUpdateInput!): Location!
+  upsertDoctor(where: DoctorWhereUniqueInput!, create: DoctorCreateInput!, update: DoctorUpdateInput!): Doctor!
+  upsertAppointment(where: AppointmentWhereUniqueInput!, create: AppointmentCreateInput!, update: AppointmentUpdateInput!): Appointment!
+  upsertHospital(where: HospitalWhereUniqueInput!, create: HospitalCreateInput!, update: HospitalUpdateInput!): Hospital!
+  upsertAttending(where: AttendingWhereUniqueInput!, create: AttendingCreateInput!, update: AttendingUpdateInput!): Attending!
+  upsertChamber(where: ChamberWhereUniqueInput!, create: ChamberCreateInput!, update: ChamberUpdateInput!): Chamber!
+  upsertVerificationCode(where: VerificationCodeWhereUniqueInput!, create: VerificationCodeCreateInput!, update: VerificationCodeUpdateInput!): VerificationCode!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyProfiles(data: ProfileUpdateManyMutationInput!, where: ProfileWhereInput): BatchPayload!
+  updateManyLocations(data: LocationUpdateManyMutationInput!, where: LocationWhereInput): BatchPayload!
+  updateManyDoctors(data: DoctorUpdateManyMutationInput!, where: DoctorWhereInput): BatchPayload!
+  updateManyAppointments(data: AppointmentUpdateManyMutationInput!, where: AppointmentWhereInput): BatchPayload!
+  updateManyHospitals(data: HospitalUpdateManyMutationInput!, where: HospitalWhereInput): BatchPayload!
+  updateManyChambers(data: ChamberUpdateManyMutationInput!, where: ChamberWhereInput): BatchPayload!
+  updateManyVerificationCodes(data: VerificationCodeUpdateManyMutationInput!, where: VerificationCodeWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyProfiles(where: ProfileWhereInput): BatchPayload!
+  deleteManyLocations(where: LocationWhereInput): BatchPayload!
+  deleteManyDoctors(where: DoctorWhereInput): BatchPayload!
+  deleteManyAppointments(where: AppointmentWhereInput): BatchPayload!
+  deleteManyHospitals(where: HospitalWhereInput): BatchPayload!
+  deleteManyAttendings(where: AttendingWhereInput): BatchPayload!
+  deleteManyChambers(where: ChamberWhereInput): BatchPayload!
+  deleteManyVerificationCodes(where: VerificationCodeWhereInput): BatchPayload!
   executeRaw(database: PrismaDatabase, query: String!): Json!
 }
 
@@ -60,10 +3674,348 @@ enum PrismaDatabase {
   default
 }
 
+type Profile implements Node {
+  id: ID!
+  phone: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  active: Boolean
+  hospital: Hospital
+  doctor: Doctor
+}
+
+"""A connection to a list of items."""
+type ProfileConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ProfileEdge]!
+  aggregate: AggregateProfile!
+}
+
+input ProfileCreateInput {
+  id: ID
+  phone: String!
+  active: Boolean
+  hospital: HospitalCreateOneWithoutProfileInput
+  doctor: DoctorCreateOneWithoutProfileInput
+}
+
+input ProfileCreateOneWithoutDoctorInput {
+  create: ProfileCreateWithoutDoctorInput
+  connect: ProfileWhereUniqueInput
+}
+
+input ProfileCreateOneWithoutHospitalInput {
+  create: ProfileCreateWithoutHospitalInput
+  connect: ProfileWhereUniqueInput
+}
+
+input ProfileCreateWithoutDoctorInput {
+  id: ID
+  phone: String!
+  active: Boolean
+  hospital: HospitalCreateOneWithoutProfileInput
+}
+
+input ProfileCreateWithoutHospitalInput {
+  id: ID
+  phone: String!
+  active: Boolean
+  doctor: DoctorCreateOneWithoutProfileInput
+}
+
+"""An edge in a connection."""
+type ProfileEdge {
+  """The item at the end of the edge."""
+  node: Profile!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ProfileOrderByInput {
+  id_ASC
+  id_DESC
+  phone_ASC
+  phone_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  active_ASC
+  active_DESC
+}
+
+type ProfilePreviousValues {
+  id: ID!
+  phone: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  active: Boolean
+}
+
+type ProfileSubscriptionPayload {
+  mutation: MutationType!
+  node: Profile
+  updatedFields: [String!]
+  previousValues: ProfilePreviousValues
+}
+
+input ProfileSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ProfileSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ProfileSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ProfileSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ProfileWhereInput
+}
+
+input ProfileUpdateInput {
+  phone: String
+  active: Boolean
+  hospital: HospitalUpdateOneWithoutProfileInput
+  doctor: DoctorUpdateOneWithoutProfileInput
+}
+
+input ProfileUpdateManyMutationInput {
+  phone: String
+  active: Boolean
+}
+
+input ProfileUpdateOneRequiredWithoutHospitalInput {
+  create: ProfileCreateWithoutHospitalInput
+  connect: ProfileWhereUniqueInput
+  update: ProfileUpdateWithoutHospitalDataInput
+  upsert: ProfileUpsertWithoutHospitalInput
+}
+
+input ProfileUpdateOneWithoutDoctorInput {
+  create: ProfileCreateWithoutDoctorInput
+  connect: ProfileWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: ProfileUpdateWithoutDoctorDataInput
+  upsert: ProfileUpsertWithoutDoctorInput
+}
+
+input ProfileUpdateWithoutDoctorDataInput {
+  phone: String
+  active: Boolean
+  hospital: HospitalUpdateOneWithoutProfileInput
+}
+
+input ProfileUpdateWithoutHospitalDataInput {
+  phone: String
+  active: Boolean
+  doctor: DoctorUpdateOneWithoutProfileInput
+}
+
+input ProfileUpsertWithoutDoctorInput {
+  update: ProfileUpdateWithoutDoctorDataInput!
+  create: ProfileCreateWithoutDoctorInput!
+}
+
+input ProfileUpsertWithoutHospitalInput {
+  update: ProfileUpdateWithoutHospitalDataInput!
+  create: ProfileCreateWithoutHospitalInput!
+}
+
+input ProfileWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ProfileWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ProfileWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ProfileWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  phone: String
+
+  """All values that are not equal to given value."""
+  phone_not: String
+
+  """All values that are contained in given list."""
+  phone_in: [String!]
+
+  """All values that are not contained in given list."""
+  phone_not_in: [String!]
+
+  """All values less than the given value."""
+  phone_lt: String
+
+  """All values less than or equal the given value."""
+  phone_lte: String
+
+  """All values greater than the given value."""
+  phone_gt: String
+
+  """All values greater than or equal the given value."""
+  phone_gte: String
+
+  """All values containing the given string."""
+  phone_contains: String
+
+  """All values not containing the given string."""
+  phone_not_contains: String
+
+  """All values starting with the given string."""
+  phone_starts_with: String
+
+  """All values not starting with the given string."""
+  phone_not_starts_with: String
+
+  """All values ending with the given string."""
+  phone_ends_with: String
+
+  """All values not ending with the given string."""
+  phone_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  active: Boolean
+
+  """All values that are not equal to given value."""
+  active_not: Boolean
+  hospital: HospitalWhereInput
+  doctor: DoctorWhereInput
+}
+
+input ProfileWhereUniqueInput {
+  id: ID
+}
+
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  profiles(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Profile]!
+  locations(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Location]!
+  doctors(where: DoctorWhereInput, orderBy: DoctorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Doctor]!
+  appointments(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Appointment]!
+  hospitals(where: HospitalWhereInput, orderBy: HospitalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Hospital]!
+  attendings(where: AttendingWhereInput, orderBy: AttendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Attending]!
+  chambers(where: ChamberWhereInput, orderBy: ChamberOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Chamber]!
+  verificationCodes(where: VerificationCodeWhereInput, orderBy: VerificationCodeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VerificationCode]!
   user(where: UserWhereUniqueInput!): User
+  profile(where: ProfileWhereUniqueInput!): Profile
+  location(where: LocationWhereUniqueInput!): Location
+  doctor(where: DoctorWhereUniqueInput!): Doctor
+  appointment(where: AppointmentWhereUniqueInput!): Appointment
+  hospital(where: HospitalWhereUniqueInput!): Hospital
+  attending(where: AttendingWhereUniqueInput!): Attending
+  chamber(where: ChamberWhereUniqueInput!): Chamber
+  verificationCode(where: VerificationCodeWhereUniqueInput!): VerificationCode
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  profilesConnection(where: ProfileWhereInput, orderBy: ProfileOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ProfileConnection!
+  locationsConnection(where: LocationWhereInput, orderBy: LocationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): LocationConnection!
+  doctorsConnection(where: DoctorWhereInput, orderBy: DoctorOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): DoctorConnection!
+  appointmentsConnection(where: AppointmentWhereInput, orderBy: AppointmentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AppointmentConnection!
+  hospitalsConnection(where: HospitalWhereInput, orderBy: HospitalOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): HospitalConnection!
+  attendingsConnection(where: AttendingWhereInput, orderBy: AttendingOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AttendingConnection!
+  chambersConnection(where: ChamberWhereInput, orderBy: ChamberOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ChamberConnection!
+  verificationCodesConnection(where: VerificationCodeWhereInput, orderBy: VerificationCodeOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VerificationCodeConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -74,11 +4026,28 @@ type Query {
 
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  profile(where: ProfileSubscriptionWhereInput): ProfileSubscriptionPayload
+  location(where: LocationSubscriptionWhereInput): LocationSubscriptionPayload
+  doctor(where: DoctorSubscriptionWhereInput): DoctorSubscriptionPayload
+  appointment(where: AppointmentSubscriptionWhereInput): AppointmentSubscriptionPayload
+  hospital(where: HospitalSubscriptionWhereInput): HospitalSubscriptionPayload
+  attending(where: AttendingSubscriptionWhereInput): AttendingSubscriptionPayload
+  chamber(where: ChamberSubscriptionWhereInput): ChamberSubscriptionPayload
+  verificationCode(where: VerificationCodeSubscriptionWhereInput): VerificationCodeSubscriptionPayload
 }
 
 type User implements Node {
   id: ID!
   name: String!
+  email: String!
+  password: String!
+  emailVerification: Boolean
+  roles: UserRoles
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  doctor: Doctor!
+  verifac: VerificationCode
+  hospital: Hospital
 }
 
 """A connection to a list of items."""
@@ -94,6 +4063,61 @@ type UserConnection {
 input UserCreateInput {
   id: ID
   name: String!
+  email: String!
+  password: String!
+  emailVerification: Boolean
+  roles: UserRoles
+  doctor: DoctorCreateOneWithoutUserInput!
+  verifac: VerificationCodeCreateOneWithoutUserInput
+  hospital: HospitalCreateOneWithoutControllersInput
+}
+
+input UserCreateManyWithoutHospitalInput {
+  create: [UserCreateWithoutHospitalInput!]
+  connect: [UserWhereUniqueInput!]
+}
+
+input UserCreateOneWithoutDoctorInput {
+  create: UserCreateWithoutDoctorInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutVerifacInput {
+  create: UserCreateWithoutVerifacInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateWithoutDoctorInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  emailVerification: Boolean
+  roles: UserRoles
+  verifac: VerificationCodeCreateOneWithoutUserInput
+  hospital: HospitalCreateOneWithoutControllersInput
+}
+
+input UserCreateWithoutHospitalInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  emailVerification: Boolean
+  roles: UserRoles
+  doctor: DoctorCreateOneWithoutUserInput!
+  verifac: VerificationCodeCreateOneWithoutUserInput
+}
+
+input UserCreateWithoutVerifacInput {
+  id: ID
+  name: String!
+  email: String!
+  password: String!
+  emailVerification: Boolean
+  roles: UserRoles
+  doctor: DoctorCreateOneWithoutUserInput!
+  hospital: HospitalCreateOneWithoutControllersInput
 }
 
 """An edge in a connection."""
@@ -110,11 +4134,267 @@ enum UserOrderByInput {
   id_DESC
   name_ASC
   name_DESC
+  email_ASC
+  email_DESC
+  password_ASC
+  password_DESC
+  emailVerification_ASC
+  emailVerification_DESC
+  roles_ASC
+  roles_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
 }
 
 type UserPreviousValues {
   id: ID!
   name: String!
+  email: String!
+  password: String!
+  emailVerification: Boolean
+  roles: UserRoles
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum UserRoles {
+  ADMIN
+  USER
+  STAFF
+  DOCTOR
+  ATTENDING
+  HOSPITAL
+}
+
+input UserScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  emailVerification: Boolean
+
+  """All values that are not equal to given value."""
+  emailVerification_not: Boolean
+  roles: UserRoles
+
+  """All values that are not equal to given value."""
+  roles_not: UserRoles
+
+  """All values that are contained in given list."""
+  roles_in: [UserRoles!]
+
+  """All values that are not contained in given list."""
+  roles_not_in: [UserRoles!]
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
 }
 
 type UserSubscriptionPayload {
@@ -156,10 +4436,113 @@ input UserSubscriptionWhereInput {
 
 input UserUpdateInput {
   name: String
+  email: String
+  password: String
+  emailVerification: Boolean
+  roles: UserRoles
+  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  verifac: VerificationCodeUpdateOneWithoutUserInput
+  hospital: HospitalUpdateOneWithoutControllersInput
+}
+
+input UserUpdateManyDataInput {
+  name: String
+  email: String
+  password: String
+  emailVerification: Boolean
+  roles: UserRoles
 }
 
 input UserUpdateManyMutationInput {
   name: String
+  email: String
+  password: String
+  emailVerification: Boolean
+  roles: UserRoles
+}
+
+input UserUpdateManyWithoutHospitalInput {
+  create: [UserCreateWithoutHospitalInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutHospitalInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutHospitalInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
+}
+
+input UserUpdateOneRequiredWithoutDoctorInput {
+  create: UserCreateWithoutDoctorInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutDoctorDataInput
+  upsert: UserUpsertWithoutDoctorInput
+}
+
+input UserUpdateOneWithoutVerifacInput {
+  create: UserCreateWithoutVerifacInput
+  connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: UserUpdateWithoutVerifacDataInput
+  upsert: UserUpsertWithoutVerifacInput
+}
+
+input UserUpdateWithoutDoctorDataInput {
+  name: String
+  email: String
+  password: String
+  emailVerification: Boolean
+  roles: UserRoles
+  verifac: VerificationCodeUpdateOneWithoutUserInput
+  hospital: HospitalUpdateOneWithoutControllersInput
+}
+
+input UserUpdateWithoutHospitalDataInput {
+  name: String
+  email: String
+  password: String
+  emailVerification: Boolean
+  roles: UserRoles
+  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  verifac: VerificationCodeUpdateOneWithoutUserInput
+}
+
+input UserUpdateWithoutVerifacDataInput {
+  name: String
+  email: String
+  password: String
+  emailVerification: Boolean
+  roles: UserRoles
+  doctor: DoctorUpdateOneRequiredWithoutUserInput
+  hospital: HospitalUpdateOneWithoutControllersInput
+}
+
+input UserUpdateWithWhereUniqueWithoutHospitalInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutHospitalDataInput!
+}
+
+input UserUpsertWithoutDoctorInput {
+  update: UserUpdateWithoutDoctorDataInput!
+  create: UserCreateWithoutDoctorInput!
+}
+
+input UserUpsertWithoutVerifacInput {
+  update: UserUpdateWithoutVerifacDataInput!
+  create: UserCreateWithoutVerifacInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutHospitalInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutHospitalDataInput!
+  create: UserCreateWithoutHospitalInput!
 }
 
 input UserWhereInput {
@@ -251,8 +4634,451 @@ input UserWhereInput {
 
   """All values not ending with the given string."""
   name_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  emailVerification: Boolean
+
+  """All values that are not equal to given value."""
+  emailVerification_not: Boolean
+  roles: UserRoles
+
+  """All values that are not equal to given value."""
+  roles_not: UserRoles
+
+  """All values that are contained in given list."""
+  roles_in: [UserRoles!]
+
+  """All values that are not contained in given list."""
+  roles_not_in: [UserRoles!]
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  doctor: DoctorWhereInput
+  verifac: VerificationCodeWhereInput
+  hospital: HospitalWhereInput
 }
 
 input UserWhereUniqueInput {
+  id: ID
+  email: String
+}
+
+type VerificationCode implements Node {
+  id: ID!
+  uid: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  user: User
+  doctor: Doctor
+}
+
+"""A connection to a list of items."""
+type VerificationCodeConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [VerificationCodeEdge]!
+  aggregate: AggregateVerificationCode!
+}
+
+input VerificationCodeCreateInput {
+  id: ID
+  uid: String!
+  user: UserCreateOneWithoutVerifacInput
+  doctor: DoctorCreateOneWithoutVerifacInput
+}
+
+input VerificationCodeCreateOneWithoutDoctorInput {
+  create: VerificationCodeCreateWithoutDoctorInput
+  connect: VerificationCodeWhereUniqueInput
+}
+
+input VerificationCodeCreateOneWithoutUserInput {
+  create: VerificationCodeCreateWithoutUserInput
+  connect: VerificationCodeWhereUniqueInput
+}
+
+input VerificationCodeCreateWithoutDoctorInput {
+  id: ID
+  uid: String!
+  user: UserCreateOneWithoutVerifacInput
+}
+
+input VerificationCodeCreateWithoutUserInput {
+  id: ID
+  uid: String!
+  doctor: DoctorCreateOneWithoutVerifacInput
+}
+
+"""An edge in a connection."""
+type VerificationCodeEdge {
+  """The item at the end of the edge."""
+  node: VerificationCode!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum VerificationCodeOrderByInput {
+  id_ASC
+  id_DESC
+  uid_ASC
+  uid_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+}
+
+type VerificationCodePreviousValues {
+  id: ID!
+  uid: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type VerificationCodeSubscriptionPayload {
+  mutation: MutationType!
+  node: VerificationCode
+  updatedFields: [String!]
+  previousValues: VerificationCodePreviousValues
+}
+
+input VerificationCodeSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VerificationCodeSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VerificationCodeSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VerificationCodeSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: VerificationCodeWhereInput
+}
+
+input VerificationCodeUpdateInput {
+  uid: String
+  user: UserUpdateOneWithoutVerifacInput
+  doctor: DoctorUpdateOneWithoutVerifacInput
+}
+
+input VerificationCodeUpdateManyMutationInput {
+  uid: String
+}
+
+input VerificationCodeUpdateOneWithoutDoctorInput {
+  create: VerificationCodeCreateWithoutDoctorInput
+  connect: VerificationCodeWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: VerificationCodeUpdateWithoutDoctorDataInput
+  upsert: VerificationCodeUpsertWithoutDoctorInput
+}
+
+input VerificationCodeUpdateOneWithoutUserInput {
+  create: VerificationCodeCreateWithoutUserInput
+  connect: VerificationCodeWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: VerificationCodeUpdateWithoutUserDataInput
+  upsert: VerificationCodeUpsertWithoutUserInput
+}
+
+input VerificationCodeUpdateWithoutDoctorDataInput {
+  uid: String
+  user: UserUpdateOneWithoutVerifacInput
+}
+
+input VerificationCodeUpdateWithoutUserDataInput {
+  uid: String
+  doctor: DoctorUpdateOneWithoutVerifacInput
+}
+
+input VerificationCodeUpsertWithoutDoctorInput {
+  update: VerificationCodeUpdateWithoutDoctorDataInput!
+  create: VerificationCodeCreateWithoutDoctorInput!
+}
+
+input VerificationCodeUpsertWithoutUserInput {
+  update: VerificationCodeUpdateWithoutUserDataInput!
+  create: VerificationCodeCreateWithoutUserInput!
+}
+
+input VerificationCodeWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VerificationCodeWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [VerificationCodeWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [VerificationCodeWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  uid: String
+
+  """All values that are not equal to given value."""
+  uid_not: String
+
+  """All values that are contained in given list."""
+  uid_in: [String!]
+
+  """All values that are not contained in given list."""
+  uid_not_in: [String!]
+
+  """All values less than the given value."""
+  uid_lt: String
+
+  """All values less than or equal the given value."""
+  uid_lte: String
+
+  """All values greater than the given value."""
+  uid_gt: String
+
+  """All values greater than or equal the given value."""
+  uid_gte: String
+
+  """All values containing the given string."""
+  uid_contains: String
+
+  """All values not containing the given string."""
+  uid_not_contains: String
+
+  """All values starting with the given string."""
+  uid_starts_with: String
+
+  """All values not starting with the given string."""
+  uid_not_starts_with: String
+
+  """All values ending with the given string."""
+  uid_ends_with: String
+
+  """All values not ending with the given string."""
+  uid_not_ends_with: String
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  user: UserWhereInput
+  doctor: DoctorWhereInput
+}
+
+input VerificationCodeWhereUniqueInput {
   id: ID
 }
